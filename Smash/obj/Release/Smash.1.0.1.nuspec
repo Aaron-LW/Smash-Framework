@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Smash</id>
+    <version>1.0.1</version>
+    <authors>Smash</authors>
+    <description>Package Description</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net10.0">
+        <dependency id="SDL3-CS" version="3.3.6" exclude="Build,Analyzers" />
+        <dependency id="SDL3-CS.Native" version="3.3.6" exclude="Build,Analyzers" />
+        <dependency id="SDL3-CS.Native.Image" version="3.2.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/media/SDL3/Smash/bin/Release/net10.0/Smash.dll" target="lib/net10.0/Smash.dll" />
+  </files>
+</package>
