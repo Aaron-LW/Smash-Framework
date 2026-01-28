@@ -7,7 +7,15 @@ namespace Smash.Graphics;
 
 public class Renderer
 {
+    /// <summary>
+    /// The handle of this instance of the Renderer class
+    /// </summary>
     public nint Handle;
+
+    /// <summary>
+    /// The camera attached to this instance of the Renderer class
+    /// May be null if no camera has been set
+    /// </summary>
     private Camera? _camera;
 
     public Renderer(nint rendererHandle)
@@ -15,17 +23,33 @@ public class Renderer
         Handle = rendererHandle;
     }
 
+    /// <summary>
+    /// Destroys this renderer
+    /// </summary>
     public void Destroy()
     {
         SDL.DestroyRenderer(Handle);
     }
 
+    /// <summary>
+    /// Clears the screen with the specified color
+    /// </summary>
+    /// <param name="color">The color which the screen should be set to</param>
     public void Clear(Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, 1);
         SDL.RenderClear(Handle);
     }
 
+    /// <summary>
+    ///Renders a Texture to the screen
+    /// </summary>
+    /// <param name="texture">The Texture2D to be drawn to the screen</param>
+    /// <param name="position">The position where the texture should be drawn at</param>
+    /// <param name="color">The color which the texture should have</param>
+    /// <param name="width">The width the texture will be scaled to</param>
+    /// <param name="height">The height the texture will be scaled to</param>
+    /// <param name="scale">The scale which the textures bounds should be multiplied with</param>
     public void RenderTexture(Texture2D texture, Vector2 position, Color color, float? width = null, float? height = null, float? scale = null)
     {
         SDL.FRect rect = new SDL.FRect
@@ -40,6 +64,12 @@ public class Renderer
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
     }
 
+    /// <summary>
+    /// Renders an entity to the screen if it has a Transform- and TextureComponent
+    /// </summary>
+    /// <param name="entity">The entity to be drawn</param>
+    /// <param name="color">The color of the entities texture</param>
+    /// <exception cref="InvalidOperationException"></exception>
     public void RenderEntity(Entity entity, Color color)
     {
         TransformComponent? transform = entity.GetComponent<TransformComponent>();
@@ -60,12 +90,21 @@ public class Renderer
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
     }
 
+    /// <summary>
+    /// Renders a line between two points
+    /// </summary>
+    /// <param name="color">The color of the line</param>
     public void RenderLine(float x1, float y1, float x2, float y2, Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, x1, y1, x2, y2);
     }
 
+    /// <summary>
+    /// Renders a wireframe view of a rectangle
+    /// </summary>
+    /// <param name="rectangle">The base rectangle</param>
+    /// <param name="color">The color of the wireframe</param>
     public void RenderRectangleWireframe(Rectangle rectangle, Color color)
     {
         RenderLine(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height, color);
@@ -75,6 +114,11 @@ public class Renderer
         RenderLine(rectangle.X + rectangle.Width, rectangle.Y, rectangle.X + rectangle.Width, rectangle.Y + rectangle.Width, color);
     }
 
+    /// <summary>
+    /// Renders a filled rectangle with the specified color
+    /// </summary>
+    /// <param name="rectangle">The rectangle to be drawn</param>
+    /// <param name="color">The color the rectangle should appear as</param>
     public void RenderFilledRectangle(Rectangle rectangle, Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
@@ -85,11 +129,18 @@ public class Renderer
         SDL.RenderFillRect(Handle, rect);
     }
 
+    /// <summary>
+    /// Renders everything to the screen
+    /// </summary>
     public void RenderPresent()
     {
         SDL.RenderPresent(Handle);
     }
 
+    /// <summary>
+    /// Sets the active camera instance
+    /// </summary>
+    /// <param name="camera">The camera lol</param>
     public void SetActiveCamera(Camera camera)
     {
         _camera = camera;

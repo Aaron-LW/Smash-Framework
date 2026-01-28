@@ -5,6 +5,9 @@ namespace Smash.Graphics;
 
 public class Window
 {
+    /// <summary>
+    /// The handle of this instance of the Window class
+    /// </summary>
     public nint Handle;
 
     public float Width;
@@ -20,11 +23,19 @@ public class Window
         Handle = windowHandle;
     }
 
+    /// <summary>
+    /// Destroys this window
+    /// </summary>
     public void Destroy()
     {
         SDL.DestroyWindow(Handle);
     }
 
+    /// <summary>
+    /// Event that should be called when the window resizes
+    /// </summary>
+    /// <param name="e">The object</param>
+    /// <param name="eventArgs">The WindowResizeEventArgs containing the new width and height</param>
     public void OnWindowResized(object? e, WindowResizeEventArgs eventArgs)
     {
         if (eventArgs.WindowId == SDL.GetWindowID(Handle))
