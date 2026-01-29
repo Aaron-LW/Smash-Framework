@@ -64,6 +64,20 @@ public class Renderer
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
     }
 
+    public void RenderTextureScreen(Texture2D texture, Vector2 position, Color color, float? width = null, float? height = null, float? scale = null)
+    {
+        SDL.FRect rect = new SDL.FRect
+        {
+            X = position.X,
+            Y = position.Y,
+            W = (width ?? texture.Width) * (scale ?? 1),
+            H = (height ?? texture.Height) * (scale ?? 1)
+        };
+
+        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+        SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
+    }
+
     /// <summary>
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
     /// </summary>
@@ -125,6 +139,14 @@ public class Renderer
         SDL.FRect rect = rectangle.ToSDLFRect();
         rect.X -= _camera?.X ?? 0;
         rect.Y -= _camera?.Y ?? 0;
+
+        SDL.RenderFillRect(Handle, rect);
+    }
+
+    public void RenderFilledRectangleScreen(Rectangle rectangle, Color color)
+    {
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.FRect rect = rectangle.ToSDLFRect();
 
         SDL.RenderFillRect(Handle, rect);
     }
