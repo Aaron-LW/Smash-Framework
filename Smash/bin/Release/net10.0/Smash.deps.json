@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "Smash/1.0.7": {
+      "Smash/1.0.11": {
         "dependencies": {
           "SDL3-CS": "3.3.6",
           "SDL3-CS.Native": "3.3.6",
@@ -162,7 +162,7 @@
     }
   },
   "libraries": {
-    "Smash/1.0.7": {
+    "Smash/1.0.11": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
