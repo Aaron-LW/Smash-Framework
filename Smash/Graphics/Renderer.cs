@@ -103,19 +103,19 @@ public class Renderer
     }
 
     /// <summary>
-    /// Renders a wireframe view of a rectangle
+    /// Renders a non-filled rectangle
     /// </summary>
-    /// <param name="rectangle">The base rectangle</param>
-    /// <param name="color">The color of the wireframe</param>
-    public void RenderRectangleWireframe(Rectangle rectangle, Color color)
+    /// <param name="rectangle">The rectangle to be drawn</param>
+    /// <param name="color">The color the rectangle should have</param>
+    public void RenderRectangle(Rectangle rectangle, Color color)
     {
-        Rectangle rect = rectangle.Clone();
-        rect.Position -= OffsetVectorEnabled ? _offsetVector : Vector2.Zero;
-        RenderLine(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height, color);
-        RenderLine(rect.X, rect.Y, rect.X + rect.Width, rect.Y, color);
-        RenderLine(rect.X, rect.Y, rect.X, rect.Y + rect.Height, color);
-        RenderLine(rect.X, rect.Y + rect.Height, rect.X + rect.Width, rect.Y + rect.Height, color);
-        RenderLine(rect.X + rect.Width, rect.Y, rect.X + rect.Width, rect.Y + rect.Width, color);
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.FRect rect = rectangle.ToSDLFRect();
+
+        rect.X -= OffsetVectorEnabled ? _offsetVector.X : 0;
+        rect.Y -= OffsetVectorEnabled ? _offsetVector.Y : 0;
+
+        SDL.RenderRect(Handle, rect);
     }
 
     /// <summary>

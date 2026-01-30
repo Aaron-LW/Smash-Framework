@@ -85,8 +85,7 @@ public class Rectangle
             _width = this._width,
             _height = this._height,
             Scale = this.Scale,
-            XOffset = this.XOffset,
-            YOffset = this.YOffset
+            Offset = this.Offset
         };
     }
 
