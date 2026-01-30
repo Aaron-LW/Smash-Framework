@@ -12,12 +12,6 @@ public class Renderer
     /// </summary>
     public nint Handle;
 
-    /// <summary>
-    /// The camera attached to this instance of the Renderer class
-    /// May be null if no camera has been set
-    /// </summary>
-    private Camera? _camera;
-
     public Renderer(nint rendererHandle)
     {
         Handle = rendererHandle;
@@ -54,20 +48,6 @@ public class Renderer
     {
         SDL.FRect rect = new SDL.FRect
         {
-            X = position.X - _camera?.X ?? 0,
-            Y = position.Y - _camera?.Y ?? 0,
-            W = (width ?? texture.Width) * (scale ?? 1),
-            H = (height ?? texture.Height) * (scale ?? 1)
-        };
-
-        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
-        SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
-    }
-
-    public void RenderTextureScreen(Texture2D texture, Vector2 position, Color color, float? width = null, float? height = null, float? scale = null)
-    {
-        SDL.FRect rect = new SDL.FRect
-        {
             X = position.X,
             Y = position.Y,
             W = (width ?? texture.Width) * (scale ?? 1),
@@ -78,7 +58,6 @@ public class Renderer
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
     }
 
-    /// <summary>
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
     /// </summary>
     /// <param name="entity">The entity to be drawn</param>
@@ -94,8 +73,8 @@ public class Renderer
 
         SDL.FRect rect = new SDL.FRect
         {
-            X = transform.X - _camera?.X ?? 0,
-            Y = transform.Y - _camera?.Y ?? 0,
+            X = transform.X,
+            Y = transform.Y,
             W = texture.Width * transform.Scale,
             H = texture.Height * transform.Scale
         };
@@ -137,16 +116,6 @@ public class Renderer
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.FRect rect = rectangle.ToSDLFRect();
-        rect.X -= _camera?.X ?? 0;
-        rect.Y -= _camera?.Y ?? 0;
-
-        SDL.RenderFillRect(Handle, rect);
-    }
-
-    public void RenderFilledRectangleScreen(Rectangle rectangle, Color color)
-    {
-        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
-        SDL.FRect rect = rectangle.ToSDLFRect();
 
         SDL.RenderFillRect(Handle, rect);
     }
@@ -157,14 +126,5 @@ public class Renderer
     public void RenderPresent()
     {
         SDL.RenderPresent(Handle);
-    }
-
-    /// <summary>
-    /// Sets the active camera instance
-    /// </summary>
-    /// <param name="camera">The camera lol</param>
-    public void SetActiveCamera(Camera camera)
-    {
-        _camera = camera;
     }
 }
