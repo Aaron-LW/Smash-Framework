@@ -18,11 +18,17 @@ public class Texture2D
     /// </summary>
     public nint Handle;
 
-    public Texture2D(nint textureHandle)
+    /// <summary>
+    /// The name of the texture gotten from the actual filename without the extension
+    /// </summary>
+    public string TextureName;
+
+    public Texture2D(nint textureHandle, string textureName)
     {
         Handle = textureHandle;
         SDL.GetTextureSize(Handle, out float width, out float height);
         Width = width;
         Height = height;
+        TextureName = textureName;
     }
 }

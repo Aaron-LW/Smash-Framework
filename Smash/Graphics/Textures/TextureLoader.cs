@@ -38,7 +38,7 @@ public class TextureLoader
 
             SDL.SetTextureScaleMode(textureHandle, SDL.ScaleMode.Nearest);
 
-            LoadedTextures[fileName] = new Texture2D(textureHandle);
+            LoadedTextures[fileName] = new Texture2D(textureHandle, fileName);
         }
     }
 

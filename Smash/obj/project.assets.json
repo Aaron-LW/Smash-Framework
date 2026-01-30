@@ -242,7 +242,7 @@
     "/home/katzi/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.16",
+    "version": "1.0.17",
     "restore": {
       "projectUniqueName": "/media/SDL3/Smash/Smash/Smash.csproj",
       "projectName": "Smash",
