@@ -7,15 +7,19 @@ public class ColliderComponent : Component
     public Rectangle Rectangle;
     public bool StaticCollider = false;
 
-    public float X { get { return Rectangle.X; } set { Rectangle.X = value; }}
-    public float Y { get { return Rectangle.Y; } set { Rectangle.Y = value; }}
-    public Vector2 Position { get { return Rectangle.Position; } set { Rectangle.Position = value; }}
+    public float XOffset => Rectangle.XOffset;
+    public float YOffset => Rectangle.YOffset;
+    public Vector2 Offset => Rectangle.Offset;
 
-    public float Width { get { return Rectangle.Width; } set { Rectangle.Width = value; }}
-    public float Height { get { return Rectangle.Height; } set { Rectangle.Height = value; }}
-    public Vector2 Bounds { get { return Rectangle.Bounds; } set { Rectangle.Bounds = value; }}
+    public float X => Rectangle.X;
+    public float Y => Rectangle.Y;
+    public Vector2 Position => Rectangle.Position;
 
-    public float Scale { get { return Rectangle.Scale; } set { Rectangle.Scale = value; }}
+    public float Width => Rectangle.Width;
+    public float Height => Rectangle.Height;
+    public Vector2 Bounds => Rectangle.Bounds;
+
+    public float Scale => Rectangle.Scale;
 
     public ColliderComponent(Rectangle rectangle, bool staticCollider)
     {
@@ -39,6 +43,6 @@ public class ColliderComponent : Component
 
     public override ColliderComponent Clone()
     {
-        return new ColliderComponent(Rectangle, StaticCollider);    
+        return new ColliderComponent(Rectangle.Clone(), StaticCollider);    
     }
 }

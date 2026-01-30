@@ -109,7 +109,8 @@ public class Renderer
     /// <param name="color">The color of the wireframe</param>
     public void RenderRectangleWireframe(Rectangle rectangle, Color color)
     {
-        Rectangle rect = new Rectangle(rectangle.Position - (OffsetVectorEnabled ? _offsetVector : Vector2.Zero), rectangle.Width, rectangle.Height, rectangle.Scale);
+        Rectangle rect = rectangle.Clone();
+        rect.Position -= OffsetVectorEnabled ? _offsetVector : Vector2.Zero;
         RenderLine(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height, color);
         RenderLine(rect.X, rect.Y, rect.X + rect.Width, rect.Y, color);
         RenderLine(rect.X, rect.Y, rect.X, rect.Y + rect.Height, color);

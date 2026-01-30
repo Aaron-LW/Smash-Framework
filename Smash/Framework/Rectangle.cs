@@ -5,8 +5,19 @@ namespace Smash;
 
 public class Rectangle
 {
-    public float X;
-    public float Y;
+    public float XOffset;
+    public float YOffset;
+    public Vector2 Offset
+    {
+        get { return new Vector2(XOffset, YOffset); }
+        set { XOffset = value.X; YOffset = value.Y; }
+    }
+
+    private float _x;
+    private float _y;
+
+    public float X { get { return _x + XOffset; } set { _x = value; }}
+    public float Y { get { return _y + YOffset; } set { _y = value; }}
     public Vector2 Position
     {
         get { return new Vector2(X, Y); }
@@ -64,4 +75,19 @@ public class Rectangle
                position.Y >= Y &&
                position.Y <= Y + Height;
     }
+
+    public Rectangle Clone()
+    {
+        return new Rectangle
+        {
+            _x = this._x,
+            _y = this._y,
+            _width = this._width,
+            _height = this._height,
+            Scale = this.Scale,
+            XOffset = this.XOffset,
+            YOffset = this.YOffset
+        };
+    }
+
 }
