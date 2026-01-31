@@ -67,6 +67,20 @@ public class Renderer
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
     }
 
+    public void RenderTextureRotated(Texture2D texture, Vector2 position, Color color, double angle, float scale = 1)
+    {
+        SDL.FRect rect = new SDL.FRect
+        {
+            X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
+            Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
+            W = texture.Width * scale,
+            H = texture.Height * scale
+        };
+
+        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+        SDL.RenderTextureRotated(Handle, texture.Handle, IntPtr.Zero, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
+    }
+
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
     /// </summary>
     /// <param name="entity">The entity to be drawn</param>
