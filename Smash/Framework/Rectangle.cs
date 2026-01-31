@@ -54,6 +54,13 @@ public class Rectangle
         Scale = scale;
     }
 
+    public Rectangle(Vector2 position, Vector2 bounds, float scale)
+    {
+        Position = position;
+        Bounds = bounds;
+        Scale = scale;
+    }
+
     public Rectangle() {}
 
 

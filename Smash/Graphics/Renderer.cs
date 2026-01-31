@@ -18,7 +18,7 @@ public class Renderer
     /// </summary>
     public nint Handle;
 
-    private Vector2 _offsetVector;
+    public Vector2 OffsetVector { get; private set; }
     private float _zoom;
 
     public Renderer(nint rendererHandle)
@@ -57,8 +57,8 @@ public class Renderer
     {
         SDL.FRect rect = new SDL.FRect
         {
-            X = position.X - (OffsetVectorEnabled ? _offsetVector.X : 0),
-            Y = position.Y - (OffsetVectorEnabled ? _offsetVector.Y : 0),
+            X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
+            Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
             W = (width ?? texture.Width) * (scale ?? 1),
             H = (height ?? texture.Height) * (scale ?? 1)
         };
@@ -82,8 +82,8 @@ public class Renderer
 
         SDL.FRect rect = new SDL.FRect
         {
-            X = transform.X - (OffsetVectorEnabled ? _offsetVector.X : 0),
-            Y = transform.Y - (OffsetVectorEnabled ? _offsetVector.Y : 0),
+            X = transform.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
+            Y = transform.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
             W = texture.Width * transform.Scale,
             H = texture.Height * transform.Scale
         };
@@ -112,8 +112,8 @@ public class Renderer
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.FRect rect = rectangle.ToSDLFRect();
 
-        rect.X -= OffsetVectorEnabled ? _offsetVector.X : 0;
-        rect.Y -= OffsetVectorEnabled ? _offsetVector.Y : 0;
+        rect.X -= OffsetVectorEnabled ? OffsetVector.X : 0;
+        rect.Y -= OffsetVectorEnabled ? OffsetVector.Y : 0;
 
         SDL.RenderRect(Handle, rect);
     }
@@ -128,8 +128,8 @@ public class Renderer
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.FRect rect = rectangle.ToSDLFRect();
 
-        rect.X -= OffsetVectorEnabled ? _offsetVector.X : 0;
-        rect.Y -= OffsetVectorEnabled ? _offsetVector.Y : 0;
+        rect.X -= OffsetVectorEnabled ? OffsetVector.X : 0;
+        rect.Y -= OffsetVectorEnabled ? OffsetVector.Y : 0;
 
         SDL.RenderFillRect(Handle, rect);
     }
@@ -144,6 +144,6 @@ public class Renderer
 
     public void SetOffsetVector(Vector2 offsetVector)
     {
-        _offsetVector = offsetVector;
+        OffsetVector = offsetVector;
     }
 }
