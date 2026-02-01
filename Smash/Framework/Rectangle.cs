@@ -83,6 +83,14 @@ public class Rectangle
                position.Y <= Y + Height;
     }
 
+    public bool IntersectsWith(Rectangle otherRectangle)
+    {
+        return X < otherRectangle.X + otherRectangle.Width &&
+               X + Width > otherRectangle.X &&
+               Y < otherRectangle.Y + otherRectangle.Height &&
+               Y + Height > otherRectangle.Y;
+    }
+
     public Rectangle Clone()
     {
         return new Rectangle
