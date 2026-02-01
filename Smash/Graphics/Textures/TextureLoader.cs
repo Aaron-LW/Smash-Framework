@@ -21,7 +21,7 @@ public class TextureLoader
 
     public static Texture2D? TryGet(string fileName)
     {
-        LoadedTextures.TryGetValue("fileName", out Texture2D? texture);
+        LoadedTextures.TryGetValue(fileName, out Texture2D? texture);
         return texture;
     }
 
