@@ -19,6 +19,12 @@ public class TextureLoader
         return LoadedTextures[fileName];
     }
 
+    public static Texture2D? TryGet(string fileName)
+    {
+        LoadedTextures.TryGetValue("fileName", out Texture2D? texture);
+        return texture;
+    }
+
     /// <summary>
     /// Loads all images from a specified directory
     /// </summary>
