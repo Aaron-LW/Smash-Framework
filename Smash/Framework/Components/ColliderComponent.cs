@@ -4,22 +4,22 @@ namespace Smash.EntityComponentSystem;
 
 public class ColliderComponent : Component
 {
-    public Rectangle Rectangle;
+    public Rectangle Rectangle { get; private set; }
     public bool StaticCollider = false;
 
-    public float XOffset => Rectangle.XOffset;
-    public float YOffset => Rectangle.YOffset;
-    public Vector2 Offset => Rectangle.Offset;
+    public float XOffset { get => Rectangle.XOffset; set { Rectangle.XOffset = value; }}
+    public float YOffset { get => Rectangle.YOffset; set { Rectangle.YOffset = value; }}
+    public Vector2 Offset { get => Rectangle.Offset; set { Rectangle.Offset = value; }}
 
-    public float X => Rectangle.X;
-    public float Y => Rectangle.Y;
-    public Vector2 Position => Rectangle.Position;
+    public float X { get => Rectangle.X; set { Rectangle.X = value; }}
+    public float Y { get => Rectangle.Y; set { Rectangle.Y = value; }}
+    public Vector2 Position { get => Rectangle.Position; set { Rectangle.Position = value; }}
 
-    public float Width => Rectangle.Width;
-    public float Height => Rectangle.Height;
-    public Vector2 Bounds => Rectangle.Bounds;
+    public float Width { get => Rectangle.Width; set { Rectangle.Width = value; }}
+    public float Height { get => Rectangle.Height; set { Rectangle.Height = value; }}
+    public Vector2 Bounds { get => Rectangle.Bounds; set { Rectangle.Bounds = value; }}
 
-    public float Scale => Rectangle.Scale;
+    public float Scale { get => Rectangle.Scale; set { Rectangle.Scale = value; }}
 
     public ColliderComponent(Rectangle rectangle, bool staticCollider)
     {
