@@ -112,6 +112,11 @@ public class Renderer
     /// <param name="color">The color of the line</param>
     public void RenderLine(float x1, float y1, float x2, float y2, Color color)
     {
+        x1 -= OffsetVectorEnabled ? OffsetVector.X : 0;
+        x2 -= OffsetVectorEnabled ? OffsetVector.X : 0;
+        y1 -= OffsetVectorEnabled ? OffsetVector.Y : 0;
+        y2 -= OffsetVectorEnabled ? OffsetVector.Y : 0;
+
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, x1, y1, x2, y2);
     }
