@@ -6,11 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "Smash/1.0.45": {
+      "Smash/1.0.47": {
         "dependencies": {
           "SDL3-CS": "3.3.6",
           "SDL3-CS.Native": "3.3.6",
-          "SDL3-CS.Native.Image": "3.2.4"
+          "SDL3-CS.Native.Image": "3.2.4",
+          "SDL3-CS.Native.TTF": "3.2.2"
         },
         "runtime": {
           "Smash.dll": {}
@@ -158,11 +159,36 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "SDL3-CS.Native.TTF/3.2.2": {
+        "runtime": {
+          "lib/net9.0/SDL3-CS.Native.TTF.dll": {
+            "assemblyVersion": "3.2.2.0",
+            "fileVersion": "3.2.2.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/SDL3_ttf.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/SDL3_ttf.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/SDL3_ttf.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
       }
     }
   },
   "libraries": {
-    "Smash/1.0.45": {
+    "Smash/1.0.47": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -187,6 +213,13 @@
       "sha512": "sha512-fTc3QawEx1BlJKGU4yL5wQLbHB8wM+XMdQ2uRzYL3bmS9y0WGvXaNzldVHNQmzzYe0nkEaGmMtSAQIFbWecDVA==",
       "path": "sdl3-cs.native.image/3.2.4",
       "hashPath": "sdl3-cs.native.image.3.2.4.nupkg.sha512"
+    },
+    "SDL3-CS.Native.TTF/3.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KbhWouNkUB2Yj943PSzaGCdGjf7EWHxdGapuNF6qmjbgd/cC4MPX7CHVwEXH8T+7/UfAJTbarUP8A6yf8IyPeQ==",
+      "path": "sdl3-cs.native.ttf/3.2.2",
+      "hashPath": "sdl3-cs.native.ttf.3.2.2.nupkg.sha512"
     }
   }
 }

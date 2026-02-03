@@ -26,4 +26,20 @@ public abstract class Application
         renderer = new Renderer(rendererHandle);
         _windowHandles.Add(windowHandle);
     }
+
+    protected void TTFInit(Renderer renderer)
+    {
+        if (!TTF.Init())
+        {
+            throw new Exception($"TTF was not able to init: {SDL.GetError()}");
+        }
+
+        FontEngine.Handle = TTF.CreateRendererTextEngine(renderer.Handle);
+    }
+
+    protected Font LoadFont(string fontPath, float pointSize)
+    {
+        nint fontHandle = TTF.OpenFont(fontPath, pointSize);
+        return new Font(fontHandle);
+    }
 }    

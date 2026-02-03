@@ -153,6 +153,12 @@ public class Renderer
         SDL.RenderFillRect(Handle, rect);
     }
 
+    public void RenderText(Font font, string text, Vector2 position)
+    {
+        nint textHandle = TTF.CreateText(FontEngine.Handle, font.Handle, text, 0);
+        TTF.DrawRendererText(textHandle, position.X, position.Y);
+    }
+
     /// <summary>
     /// Renders everything to the screen
     /// </summary>
