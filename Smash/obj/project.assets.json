@@ -136,6 +136,33 @@
             "rid": "win-x86"
           }
         }
+      },
+      "SDL3-CS.Native.TTF/3.2.2": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/SDL3-CS.Native.TTF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/SDL3-CS.Native.TTF.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/SDL3_ttf.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/SDL3_ttf.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/SDL3_ttf.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
       }
     }
   },
@@ -229,20 +256,44 @@
         "sdl3-cs.native.image.3.2.4.nupkg.sha512",
         "sdl3-cs.native.image.nuspec"
       ]
+    },
+    "SDL3-CS.Native.TTF/3.2.2": {
+      "sha512": "KbhWouNkUB2Yj943PSzaGCdGjf7EWHxdGapuNF6qmjbgd/cC4MPX7CHVwEXH8T+7/UfAJTbarUP8A6yf8IyPeQ==",
+      "type": "package",
+      "path": "sdl3-cs.native.ttf/3.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net7.0/SDL3-CS.Native.TTF.dll",
+        "lib/net7.0/SDL3-CS.Native.TTF.xml",
+        "lib/net8.0/SDL3-CS.Native.TTF.dll",
+        "lib/net8.0/SDL3-CS.Native.TTF.xml",
+        "lib/net9.0/SDL3-CS.Native.TTF.dll",
+        "lib/net9.0/SDL3-CS.Native.TTF.xml",
+        "logo.png",
+        "runtimes/win-arm64/native/SDL3_ttf.dll",
+        "runtimes/win-x64/native/SDL3_ttf.dll",
+        "runtimes/win-x86/native/SDL3_ttf.dll",
+        "sdl3-cs.native.ttf.3.2.2.nupkg.sha512",
+        "sdl3-cs.native.ttf.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "SDL3-CS >= 3.3.6",
       "SDL3-CS.Native >= 3.3.6",
-      "SDL3-CS.Native.Image >= 3.2.4"
+      "SDL3-CS.Native.Image >= 3.2.4",
+      "SDL3-CS.Native.TTF >= 3.2.2"
     ]
   },
   "packageFolders": {
     "/home/katzi/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.44",
+    "version": "1.0.45",
     "restore": {
       "projectUniqueName": "/media/SDL3/Smash/Smash/Smash.csproj",
       "projectName": "Smash",
@@ -293,6 +344,10 @@
           "SDL3-CS.Native.Image": {
             "target": "Package",
             "version": "[3.2.4, )"
+          },
+          "SDL3-CS.Native.TTF": {
+            "target": "Package",
+            "version": "[3.2.2, )"
           }
         },
         "imports": [

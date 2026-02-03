@@ -5,7 +5,7 @@
   },
   "projects": {
     "/media/SDL3/Smash/Smash/Smash.csproj": {
-      "version": "1.0.44",
+      "version": "1.0.45",
       "restore": {
         "projectUniqueName": "/media/SDL3/Smash/Smash/Smash.csproj",
         "projectName": "Smash",
@@ -56,6 +56,10 @@
             "SDL3-CS.Native.Image": {
               "target": "Package",
               "version": "[3.2.4, )"
+            },
+            "SDL3-CS.Native.TTF": {
+              "target": "Package",
+              "version": "[3.2.2, )"
             }
           },
           "imports": [
