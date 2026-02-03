@@ -158,7 +158,19 @@ public class Renderer
         nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
         
         TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
+        TTF.DrawRendererText(textHandle, position.X, position.Y);
+    }
 
+    public void RenderText(Font font, string text, Vector2 position, Color color, int outlineThickness, Color outlineColor)
+    {
+        nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
+        
+        TTF.SetTextColor(textHandle, outlineColor.R, outlineColor.G, outlineColor.B, outlineColor.A);
+        TTF.SetFontOutline(font.Handle, outlineThickness);
+        TTF.DrawRendererText(textHandle, position.X - outlineThickness * 2, position.Y - outlineThickness * 2); 
+
+        TTF.SetFontOutline(font.Handle, 0); 
+        TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
         TTF.DrawRendererText(textHandle, position.X, position.Y);
     }
 

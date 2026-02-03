@@ -5,7 +5,7 @@
   },
   "projects": {
     "/media/SDL3/Smash/Smash/Smash.csproj": {
-      "version": "1.0.64",
+      "version": "1.0.72",
       "restore": {
         "projectUniqueName": "/media/SDL3/Smash/Smash/Smash.csproj",
         "projectName": "Smash",
