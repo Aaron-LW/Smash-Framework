@@ -153,9 +153,11 @@ public class Renderer
         SDL.RenderFillRect(Handle, rect);
     }
 
-    public void RenderText(Font font, string text, Vector2 position)
+    public void RenderText(Font font, string text, Vector2 position, Color color)
     {
-        nint textHandle = TTF.CreateText(FontEngine.Handle, font.Handle, text, 0);
+        nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
+        TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
+
         TTF.DrawRendererText(textHandle, position.X, position.Y);
     }
 

@@ -4,19 +4,33 @@ internal static class FontEngine
 {
     public static nint Handle;
 
-    private static Dictionary<string, nint> _texts = new Dictionary<string, nint>();
-    private static List<nint> _fontHandles = new();
+    private static Dictionary<nint, Dictionary<string, nint>> _fontTextCache = new Dictionary<nint, Dictionary<string, nint>>();
 
-    internal static nint GetTextHandleFromText(string text)
+    /// <summary>
+    /// Gets or creates the handle to a TTF.TTFText
+    /// </summary>
+    /// <param name="font"></param>
+    /// <param name="text"></param>
+    /// <param name="rendererHandle"></param>
+    /// <returns>yo mama</returns>
+    internal static nint GetTextHandleFromText(Font font, string text, nint rendererHandle)
     {
-        if (_texts.TryGetValue(text, out nint textHandle))
+        _fontTextCache.TryGetValue(font.Handle, out Dictionary<string, nint>? texts);
+
+        if (texts == null)
         {
-            return textHandle;
+            _fontTextCache[font.Handle] = new Dictionary<string, nint>();
+            goto createText;
         }
 
-        nint textHandle2 = TTF.CreateText(Handle, _fontHandles[0], text, 0);
-        return textHandle2;
-    }
+        if (texts.ContainsKey(text))
+        {
+            return _fontTextCache[font.Handle][text];
+        }
 
-    
+        createText:
+           nint ttftext = TTF.CreateText(Handle, font.Handle, text, 0);
+           _fontTextCache[font.Handle][text] = ttftext;
+           return ttftext;
+    }
 }

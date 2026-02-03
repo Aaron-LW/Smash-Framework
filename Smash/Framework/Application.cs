@@ -36,10 +36,4 @@ public abstract class Application
 
         FontEngine.Handle = TTF.CreateRendererTextEngine(renderer.Handle);
     }
-
-    protected Font LoadFont(string fontPath, float pointSize)
-    {
-        nint fontHandle = TTF.OpenFont(fontPath, pointSize);
-        return new Font(fontHandle);
-    }
 }    
