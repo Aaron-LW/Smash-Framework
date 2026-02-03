@@ -9,9 +9,6 @@ internal static class FontEngine
     /// <summary>
     /// Gets or creates the handle to a TTF.TTFText
     /// </summary>
-    /// <param name="font"></param>
-    /// <param name="text"></param>
-    /// <param name="rendererHandle"></param>
     /// <returns>yo mama</returns>
     internal static nint GetTextHandleFromText(Font font, string text, nint rendererHandle)
     {
@@ -32,5 +29,21 @@ internal static class FontEngine
            nint ttftext = TTF.CreateText(Handle, font.Handle, text, 0);
            _fontTextCache[font.Handle][text] = ttftext;
            return ttftext;
+    }
+
+    public static void Destory()
+    {
+        foreach (KeyValuePair<nint, Dictionary<string, nint>> keyValuePair in _fontTextCache)
+        {
+            TTF.CloseFont(keyValuePair.Key);
+
+            foreach (Dictionary<string, nint> dict in _fontTextCache.Values)
+            {
+                foreach (KeyValuePair<string, nint> keyValuePair1 in dict)
+                {
+                    TTF.DestroyText(keyValuePair1.Value);
+                } 
+            }
+        } 
     }
 }

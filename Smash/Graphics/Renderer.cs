@@ -156,6 +156,7 @@ public class Renderer
     public void RenderText(Font font, string text, Vector2 position, Color color)
     {
         nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
+        
         TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
 
         TTF.DrawRendererText(textHandle, position.X, position.Y);

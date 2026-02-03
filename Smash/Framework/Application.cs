@@ -36,4 +36,10 @@ public abstract class Application
 
         FontEngine.Handle = TTF.CreateRendererTextEngine(renderer.Handle);
     }
+
+    protected void TTFDestroy()
+    {
+        FontEngine.Destory();
+        TTF.Quit();
+    }
 }    
