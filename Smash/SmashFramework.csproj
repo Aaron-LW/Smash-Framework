@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Version>1.0.72</Version>
+    <Version>1.0.75</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,5 +15,10 @@
 	  <PackageReference Include="SDL3-CS.Native" Version="3.3.6" />
 	  <PackageReference Include="SDL3-CS.Native.Image" Version="3.2.4" />
 	  <PackageReference Include="SDL3-CS.Native.TTF" Version="3.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+   <None Include="README.md" Pack="true" PackagePath="\" />
+   <None Include="LICENSE" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

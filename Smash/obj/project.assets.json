@@ -293,11 +293,11 @@
     "/home/katzi/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.72",
+    "version": "1.0.75",
     "restore": {
-      "projectUniqueName": "/media/SDL3/Smash/Smash/Smash.csproj",
-      "projectName": "Smash",
-      "projectPath": "/media/SDL3/Smash/Smash/Smash.csproj",
+      "projectUniqueName": "/media/SDL3/Smash/Smash/SmashFramework.csproj",
+      "projectName": "SmashFramework",
+      "projectPath": "/media/SDL3/Smash/Smash/SmashFramework.csproj",
       "packagesPath": "/home/katzi/.nuget/packages/",
       "outputPath": "/media/SDL3/Smash/Smash/obj/",
       "projectStyle": "PackageReference",
