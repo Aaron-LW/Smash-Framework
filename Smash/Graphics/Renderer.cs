@@ -162,7 +162,7 @@ public class Renderer
     /// <param name="color">The color which the text should be</param>
     public void RenderText(Font font, string text, Vector2 position, Color color)
     {
-        nint textTextureHandle = font.GetOrRenderText(text);
+        nint textTextureHandle = font.GetOrRenderText(text, Handle);
         
         SDL.GetTextureSize(textTextureHandle, out float width, out float height);
         SDL.FRect rect = new SDL.FRect

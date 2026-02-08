@@ -1,5 +1,7 @@
 using SDL3;
 
+namespace Smash.Graphics;
+
 public class Font
 {
     private Dictionary<string, nint> _textToTexture = new Dictionary<string, nint>();
@@ -21,7 +23,7 @@ public class Font
         TTF.CloseFont(Handle);
     }
     
-    public nint GetOrRenderText(string text)
+    public nint GetOrRenderText(string text, nint renderer)
     {
         if (_textToTexture.TryGetValue(text, out nint cachedTextureHandle))
         {
@@ -36,7 +38,9 @@ public class Font
             A = 255
         };
 
-        nint textureHandle = TTF.RenderTextBlended(Handle, text, (nuint)text.Length, color);
+        nint surfaceHandle = TTF.RenderTextBlended(Handle, text, (nuint)text.Length, color);
+        nint textureHandle = SDL.CreateTextureFromSurface(renderer, surfaceHandle);
+        
         _textToTexture[text] = textureHandle;
         return textureHandle;
     }

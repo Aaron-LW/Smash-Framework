@@ -27,7 +27,7 @@ public abstract class Application
         _windowHandles.Add(windowHandle);
     }
 
-    protected void TTFInit(Renderer renderer)
+    protected void TTFInit()
     {
         if (!TTF.Init())
         {
