@@ -153,25 +153,28 @@ public class Renderer
         SDL.RenderFillRect(Handle, rect);
     }
 
+    /// <summary>
+    /// Renders text to the screen at specified position
+    /// </summary>
+    /// <param name="font">The Font of the text</param>
+    /// <param name="text">The string representing the text that should be drawn</param>
+    /// <param name="position">The position where the text should be drawn in screen coordinates</param>
+    /// <param name="color">The color which the text should be</param>
     public void RenderText(Font font, string text, Vector2 position, Color color)
     {
-        nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
+        nint textTextureHandle = font.GetOrRenderText(text);
         
-        TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
-        TTF.DrawRendererText(textHandle, position.X, position.Y);
-    }
+        SDL.GetTextureSize(textTextureHandle, out float width, out float height);
+        SDL.FRect rect = new SDL.FRect
+        {
+            X = position.X,
+            Y = position.Y,
+            W = width,
+            H = height
+        };
 
-    public void RenderText(Font font, string text, Vector2 position, Color color, int outlineThickness, Color outlineColor)
-    {
-        nint textHandle = FontEngine.GetTextHandleFromText(font, text, Handle);
-        
-        TTF.SetTextColor(textHandle, outlineColor.R, outlineColor.G, outlineColor.B, outlineColor.A);
-        TTF.SetFontOutline(font.Handle, outlineThickness);
-        TTF.DrawRendererText(textHandle, position.X - outlineThickness * 2, position.Y - outlineThickness * 2); 
-
-        TTF.SetFontOutline(font.Handle, 0); 
-        TTF.SetTextColor(textHandle, color.R, color.G, color.B, color.A);
-        TTF.DrawRendererText(textHandle, position.X, position.Y);
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
     }
 
     /// <summary>

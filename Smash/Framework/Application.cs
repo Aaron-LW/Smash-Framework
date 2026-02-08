@@ -33,13 +33,10 @@ public abstract class Application
         {
             throw new Exception($"TTF was not able to init: {SDL.GetError()}");
         }
-
-        FontEngine.Handle = TTF.CreateRendererTextEngine(renderer.Handle);
     }
 
     protected void TTFDestroy()
     {
-        FontEngine.Destory();
         TTF.Quit();
     }
 }    

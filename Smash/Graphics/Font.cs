@@ -1,8 +1,9 @@
-using System.Numerics;
 using SDL3;
 
 public class Font
 {
+    private Dictionary<string, nint> _textToTexture = new Dictionary<string, nint>();
+
     public nint Handle;
     
     public Font(string fontPath, float pointSize)
@@ -12,17 +13,31 @@ public class Font
 
     public void Free()
     {
+        foreach (nint textureHandle in _textToTexture.Values)
+        {
+            SDL.DestroyTexture(textureHandle);
+        } 
+
         TTF.CloseFont(Handle);
     }
     
-    public Vector2 MeasureString(string text)
+    public nint GetOrRenderText(string text)
     {
-        int widht, height;
+        if (_textToTexture.TryGetValue(text, out nint cachedTextureHandle))
+        {
+            return cachedTextureHandle; 
+        }
 
-        nint textHandle = TTF.CreateText(FontEngine.Handle, Handle, text, 0);
+        SDL.Color color = new SDL.Color
+        {
+            R = 255,
+            G = 255,
+            B = 255,
+            A = 255
+        };
 
-        TTF.GetTextSize(textHandle, out widht, out height);
-
-        return new Vector2(widht, height);
+        nint textureHandle = TTF.RenderTextBlended(Handle, text, (nuint)text.Length, color);
+        _textToTexture[text] = textureHandle;
+        return textureHandle;
     }
 }
