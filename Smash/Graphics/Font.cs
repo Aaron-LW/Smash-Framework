@@ -11,6 +11,11 @@ public class Font
     public Font(string fontPath, float pointSize)
     {
         Handle = TTF.OpenFont(fontPath, pointSize);
+
+        if (Handle == 0)
+        {
+            throw new FileNotFoundException("Cannot find Font at " + fontPath);
+        }
     }
 
     public void Free()
@@ -23,7 +28,7 @@ public class Font
         TTF.CloseFont(Handle);
     }
     
-    public nint GetOrRenderText(string text, nint renderer)
+    internal nint GetOrRenderText(string text, nint renderer)
     {
         if (_textToTexture.TryGetValue(text, out nint cachedTextureHandle))
         {
