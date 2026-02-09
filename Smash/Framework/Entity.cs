@@ -2,11 +2,16 @@ namespace Smash.EntityComponentSystem;
 
 public class Entity
 {
+    private static int _nextId = 0;
+    public int Id;
+
     protected List<Component> _components = new List<Component>();
 
     public Entity(Component[]? components = null)
     {
         if (components != null) _components = components.ToList();
+
+        Id = _nextId++;
     }
 
     public T GetComponent<T>() where T : Component
