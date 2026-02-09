@@ -18,8 +18,15 @@ public class Renderer
     /// </summary>
     public nint Handle;
 
+    /// <summary>
+    /// The offset of the camera from the coordinates 0, 0
+    /// </summary>
     public Vector2 OffsetVector { get; private set; }
-    private float _zoom;
+
+    /// <summary>
+    /// Gets incremented everytime a texture is drawn
+    /// </summary>
+    public int DrawnTexturesAmount;
 
     public Renderer(nint rendererHandle)
     {
@@ -65,6 +72,8 @@ public class Renderer
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
+
+        DrawnTexturesAmount++;
     }
 
     public void RenderTextureRotated(Texture2D texture, Vector2 position, Color color, double angle, float scale = 1)
@@ -79,6 +88,8 @@ public class Renderer
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.RenderTextureRotated(Handle, texture.Handle, IntPtr.Zero, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
+
+        DrawnTexturesAmount++;
     }
 
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
@@ -104,6 +115,8 @@ public class Renderer
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
+
+        DrawnTexturesAmount++;
     }
 
     /// <summary>
@@ -175,6 +188,8 @@ public class Renderer
 
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
+
+        DrawnTexturesAmount++;
     }
 
     /// <summary>
