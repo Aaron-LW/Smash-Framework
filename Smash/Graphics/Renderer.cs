@@ -158,6 +158,7 @@ public class Renderer
     public void RenderFilledRectangle(Rectangle rectangle, Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+
         SDL.FRect rect = rectangle.ToSDLFRect();
 
         rect.X -= OffsetVectorEnabled ? OffsetVector.X : 0;
@@ -190,6 +191,11 @@ public class Renderer
         SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
 
         DrawnTexturesAmount++;
+    }
+
+    public void SetRenderBlendMode(SDL.BlendMode blendMode)
+    {
+        SDL.SetRenderDrawBlendMode(Handle, blendMode);
     }
 
     /// <summary>

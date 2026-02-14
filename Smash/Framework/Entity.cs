@@ -45,7 +45,7 @@ public class Entity
         _components.Add(component);
     }
 
-    public Entity Clone()
+    public virtual Entity Clone()
     {
         return new Entity(_components.Select(c => c.Clone()).ToArray());
     }
