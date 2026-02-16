@@ -293,7 +293,7 @@
     "/home/katzi/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.88",
+    "version": "1.0.89",
     "restore": {
       "projectUniqueName": "/media/SDL3/Smash/Smash/SmashFramework.csproj",
       "projectName": "SmashFramework",
@@ -364,7 +364,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[10.0.0, 10.0.0]"
+            "version": "[10.0.3, 10.0.3]"
           }
         ],
         "frameworkReferences": {
@@ -372,7 +372,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -71,6 +71,8 @@ public class Renderer
         };
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+        SDL.SetTextureAlphaMod(texture.Handle, color.A);
+
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
 
         DrawnTexturesAmount++;
