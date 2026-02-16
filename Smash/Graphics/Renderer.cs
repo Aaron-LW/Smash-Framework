@@ -89,6 +89,8 @@ public class Renderer
         };
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+        SDL.SetTextureAlphaMod(texture.Handle, color.A);
+
         SDL.RenderTextureRotated(Handle, texture.Handle, IntPtr.Zero, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
 
         DrawnTexturesAmount++;
