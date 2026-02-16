@@ -60,14 +60,14 @@ public class Renderer
     /// <param name="width">The width the texture will be scaled to</param>
     /// <param name="height">The height the texture will be scaled to</param>
     /// <param name="scale">The scale which the textures bounds should be multiplied with</param>
-    public void RenderTexture(Texture2D texture, Vector2 position, Color color, float? width = null, float? height = null, float? scale = null)
+    public void RenderTexture(Texture2D texture, Vector2 position, Color color, float scale = 1)
     {
         SDL.FRect rect = new SDL.FRect
         {
             X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
             Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
-            W = (width ?? texture.Width) * (scale ?? 1),
-            H = (height ?? texture.Height) * (scale ?? 1)
+            W = texture.Width * scale,
+            H = texture.Height * scale
         };
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
