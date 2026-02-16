@@ -27,38 +27,33 @@ public class Rectangle
     private float _width;
     private float _height;
 
-    public float Width { get { return _width * Scale; } set { _width = value; }}
-    public float Height { get { return _height * Scale; } set { _height = value; }}
+    public float Width { get { return _width; } set { _width = value; }}
+    public float Height { get { return _height; } set { _height = value; }}
     public Vector2 Bounds
     {
         get { return new Vector2(Width, Height); }
         set { Width = value.X; Height = value.Y; }
     }
 
-    public float Scale = 1;
-
-    public Rectangle(Vector2 position, float width, float height, float scale)
+    public Rectangle(Vector2 position, float width, float height)
     {
         Position = position;
         Width = width;
         Height = height;
-        Scale = scale;
     } 
 
-    public Rectangle(float x, float y, float width, float height, float scale)
+    public Rectangle(float x, float y, float width, float height)
     {
         X = x;
         Y = y;
         Width = width;
         Height = height;
-        Scale = scale;
     }
 
-    public Rectangle(Vector2 position, Vector2 bounds, float scale)
+    public Rectangle(Vector2 position, Vector2 bounds)
     {
         Position = position;
         Bounds = bounds;
-        Scale = scale;
     }
 
     public Rectangle() {}
@@ -99,7 +94,6 @@ public class Rectangle
             _y = this._y,
             _width = this._width,
             _height = this._height,
-            Scale = this.Scale,
             Offset = this.Offset
         };
     }

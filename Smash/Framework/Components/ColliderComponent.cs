@@ -19,17 +19,15 @@ public class ColliderComponent : Component
     public float Height { get => Rectangle.Height; set { Rectangle.Height = value; }}
     public Vector2 Bounds { get => Rectangle.Bounds; set { Rectangle.Bounds = value; }}
 
-    public float Scale { get => Rectangle.Scale; set { Rectangle.Scale = value; }}
-
     public ColliderComponent(Rectangle rectangle, bool staticCollider)
     {
         Rectangle = rectangle; 
         StaticCollider = staticCollider;
     }
 
-    public ColliderComponent(float x, float y, float width, float height, float scale, bool staticCollider)
+    public ColliderComponent(float x, float y, float width, float height, bool staticCollider)
     {
-        Rectangle = new Rectangle(x, y, width, height, scale);
+        Rectangle = new Rectangle(x, y, width, height);
         StaticCollider = staticCollider;
     }
 
@@ -38,7 +36,6 @@ public class ColliderComponent : Component
         if (StaticCollider) return;
         Rectangle.X = transform.X;
         Rectangle.Y = transform.Y;
-        Rectangle.Scale = transform.Scale;
     }
 
     public override ColliderComponent Clone()
