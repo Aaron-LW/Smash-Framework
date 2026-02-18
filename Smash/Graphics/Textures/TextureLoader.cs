@@ -39,7 +39,9 @@ public class TextureLoader
             string fileName = Path.GetFileNameWithoutExtension(filePath);
 
             nint surfaceHandle = Image.Load(filePath);
+
             nint textureHandle = SDL.CreateTextureFromSurface(rendererHandle, surfaceHandle);
+
             SDL.DestroySurface(surfaceHandle);
 
             SDL.SetTextureScaleMode(textureHandle, SDL.ScaleMode.Nearest);

@@ -3,11 +3,13 @@ using SDL3;
 
 namespace Smash.Input;
 
-public static class InputHandler
+public class InputHandler
 {
     public static float MouseX { get; private set; }
     public static float MouseY { get; private set; }
     public static Vector2 MousePosition => new Vector2(MouseX, MouseY);
+
+    public static float ScrollWheelDelta { get; private set; }
 
     private static HashSet<SDL.Keycode> _downKeys = new();
     private static HashSet<SDL.Keycode> _pressedKeys = new();
@@ -17,7 +19,7 @@ public static class InputHandler
     private static bool _leftMousePressed;
     private static bool _rightMousePressed;
 
-    public static void Event(SDL.Event e)
+    public void Event(SDL.Event e)
     {
         if (e.Type == (uint)SDL.EventType.KeyDown && !e.Key.Repeat)
         {
@@ -63,13 +65,19 @@ public static class InputHandler
             MouseX = x;
             MouseY = y;
         }
+        
+        if (e.Type == (uint)SDL.EventType.MouseWheel)
+        {
+            ScrollWheelDelta = e.Wheel.Y;
+        }
     }
 
-    public static void Update()
+    public void Update()
     {
         _pressedKeys.Clear();
         _leftMousePressed = false;
         _rightMousePressed = false;
+        ScrollWheelDelta = 0;
     }
 
     public static bool IsKeyDown(SDL.Keycode key) => _downKeys.Contains(key);

@@ -31,4 +31,9 @@ public class Texture2D
         Height = height;
         TextureName = textureName;
     }
+
+    public Vector2 GetCenter(Vector2 position)
+    {
+        return position + Bounds / 2;
+    }
 }
