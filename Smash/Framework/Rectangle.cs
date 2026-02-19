@@ -86,6 +86,11 @@ public class Rectangle
                Y + Height > otherRectangle.Y;
     }
 
+    public Vector2 GetRandomPositionInRectangle(Random random)
+    {
+        return new Vector2(random.Next((int)_x, (int)(_x + Width)), random.Next((int)_y, (int)(_y + Height)));
+    }
+
     public Rectangle Clone()
     {
         return new Rectangle
@@ -97,5 +102,4 @@ public class Rectangle
             Offset = this.Offset
         };
     }
-
 }

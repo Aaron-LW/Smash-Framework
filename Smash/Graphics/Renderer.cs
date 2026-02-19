@@ -138,6 +138,15 @@ public class Renderer
         SDL.RenderLine(Handle, x1, y1, x2, y2);
     }
 
+    public void RenderLine(Vector2 startPosition, Vector2 endPosition, Color color)
+    {
+        startPosition -= OffsetVectorEnabled ? OffsetVector : Vector2.Zero;
+        endPosition -= OffsetVectorEnabled ? OffsetVector : Vector2.Zero;
+
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderLine(Handle, startPosition.X, startPosition.Y, endPosition.X, endPosition.Y);
+    }
+
     /// <summary>
     /// Renders a non-filled rectangle
     /// </summary>

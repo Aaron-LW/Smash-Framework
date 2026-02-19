@@ -1,5 +1,6 @@
 using System.Numerics;
 using SDL3;
+using Smash.EntityComponentSystem;
 
 namespace Smash.Graphics;
 
@@ -32,8 +33,8 @@ public class Texture2D
         TextureName = textureName;
     }
 
-    public Vector2 GetCenter(Vector2 position)
+    public Vector2 GetCenter(TransformComponent transformComponent)
     {
-        return position + Bounds / 2;
+        return transformComponent.Position + (Bounds * transformComponent.Scale / 2);
     }
 }
