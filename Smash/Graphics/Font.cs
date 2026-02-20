@@ -1,3 +1,4 @@
+using System.Numerics;
 using SDL3;
 
 namespace Smash.Graphics;
@@ -8,14 +9,9 @@ public class Font
 
     public nint Handle;
     
-    public Font(string fontPath, float pointSize)
+    internal Font(nint handle)
     {
-        Handle = TTF.OpenFont(fontPath, pointSize);
-
-        if (Handle == 0)
-        {
-            throw new FileNotFoundException("Cannot find Font at " + fontPath);
-        }
+        Handle = handle;
     }
 
     public void Free()
@@ -26,6 +22,12 @@ public class Font
         } 
 
         TTF.CloseFont(Handle);
+    }
+
+    public Vector2 MeasureString(string text)
+    {
+        TTF.GetStringSize(Handle, text, (nuint)text.Length, out int width, out int height);
+        return new Vector2(width, height);
     }
     
     internal nint GetOrRenderText(string text, nint renderer)
