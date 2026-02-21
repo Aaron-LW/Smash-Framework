@@ -200,7 +200,8 @@ public class Renderer
             H = height
         };
 
-        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.SetTextureColorMod(textTextureHandle, color.R, color.G, color.B);
+        SDL.SetTextureAlphaMod(textTextureHandle, color.A);
         SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
 
         DrawnTexturesAmount++;

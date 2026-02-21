@@ -6,12 +6,14 @@ namespace Smash.Graphics;
 public class Font
 {
     private Dictionary<string, nint> _textToTexture = new Dictionary<string, nint>();
-
+    
+    public readonly float PointSize;
     public nint Handle;
     
-    internal Font(nint handle)
+    internal Font(nint handle, float pointSize)
     {
         Handle = handle;
+        PointSize = pointSize;
     }
 
     public void Free()

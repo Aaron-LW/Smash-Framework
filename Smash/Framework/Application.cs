@@ -47,7 +47,7 @@ public abstract class Application
     /// <returns></returns>
     protected Font LoadFont(string relativePath, float pointSize)
     {
-        string fontPath = Path.Combine(Directory.GetCurrentDirectory(), relativePath);
+        string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
 
         if (!File.Exists(fontPath))
         {
@@ -55,6 +55,6 @@ public abstract class Application
         }
 
         nint fontHandle = TTF.OpenFont(fontPath, pointSize);
-        return new Font(fontHandle);
+        return new Font(fontHandle, pointSize);
     }
 }    

@@ -11,6 +11,9 @@ public class InputHandler
 
     public static float ScrollWheelDelta { get; private set; }
 
+    private static HashSet<SDL.Keycode> _previousDownKeys = new();
+    private static HashSet<SDL.Keycode> _previousPressedKeys = new();
+
     private static HashSet<SDL.Keycode> _downKeys = new();
     private static HashSet<SDL.Keycode> _pressedKeys = new();
 
@@ -21,6 +24,9 @@ public class InputHandler
 
     public void Event(SDL.Event e)
     {
+        _previousDownKeys = _downKeys;
+        _previousPressedKeys = _pressedKeys;
+
         if (e.Type == (uint)SDL.EventType.KeyDown && !e.Key.Repeat)
         {
             _downKeys.Add(e.Key.Key);
@@ -82,6 +88,9 @@ public class InputHandler
 
     public static bool IsKeyDown(SDL.Keycode key) => _downKeys.Contains(key);
     public static bool IsKeyPressed(SDL.Keycode key) => _pressedKeys.Contains(key);
+
+    public static bool WasKeyDown(SDL.Keycode key) => _previousDownKeys.Contains(key);
+    public static bool WasKeyPressed(SDL.Keycode key) => _previousPressedKeys.Contains(key);
 
     public static bool IsLeftMouseDown() => _leftMouseDown;
     public static bool IsRightMouseDown() => _rightMouseDown;
