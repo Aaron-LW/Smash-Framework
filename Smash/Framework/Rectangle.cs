@@ -70,6 +70,17 @@ public class Rectangle
         };
     }
 
+    public SDL.Rect ToSDLRect()
+    {
+        return new SDL.Rect
+        {
+            X = (int)X,
+            Y = (int)Y,
+            W = (int)Width,
+            H = (int)Height
+        };
+    }
+
     public bool IsPositionInRectangle(Vector2 position)
     {
         return position.X >= X &&
