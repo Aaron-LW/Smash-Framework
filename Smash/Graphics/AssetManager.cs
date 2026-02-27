@@ -5,9 +5,22 @@ namespace Smash.Graphics;
 
 public static class AssetManager
 {
-    public static Dictionary<string, Texture2D> LoadedTextures { get; private set; } = new();
+    private static Dictionary<string, Texture2D> _loadedTextures = new();
 
     private static string _rootDirectoryPath = "";
+    private static SDL.BlendMode _defaultBlendMode = SDL.BlendMode.Blend;
+    private static SDL.ScaleMode _defaultScaleMode = SDL.ScaleMode.Linear;
+
+    public static Texture2D? TryGet(string textureName)
+    {
+        _loadedTextures.TryGetValue(textureName, out Texture2D? texture);
+        return texture;
+    }
+
+    public static Texture2D Get(string textureName)
+    {
+        return _loadedTextures[textureName];
+    }
 
     /// <summary>
     /// Sets the relative path from which all assets will be loaded
@@ -19,8 +32,24 @@ public static class AssetManager
     }
 
     /// <summary>
+    /// Sets the default blend mode that should be applied to every loaded Texture2D after this function has been called
+    /// </summary>
+    public static void SetDefaultBlendMode(SDL.BlendMode blendMode)
+    {
+        _defaultBlendMode = blendMode;
+    }
+
+    /// <summary>
+    /// Sets the default scale mode that should be applied to every loaded Texture2D after this function has been called
+    /// </summary>
+    public static void SetDefaultScaleMode(SDL.ScaleMode scaleMode)
+    {
+        _defaultScaleMode = scaleMode;
+    }
+
+    /// <summary>
     /// Loads a Texture2D from an image relative to the root directory path
-    /// The loaded Texture2D will be stored into the LoadedTextures dictionary with the key being the files name without the extension
+    /// The loaded Texture2D will be stored into the _loadedTextures dictionary with the key being the files name without the extension
     /// </summary>
     /// <returns>The loaded Texture2D</returns>
     public static Texture2D LoadTexture(string relativePath, Renderer renderer)
@@ -31,13 +60,24 @@ public static class AssetManager
         nint textureHandle = Image.LoadTexture(renderer.Handle, fullPath);
         Texture2D texture = new Texture2D(textureHandle, fileName);
 
-        LoadedTextures.Add(fileName, texture);
+        SDL.SetTextureBlendMode(texture.Handle, _defaultBlendMode);
+        SDL.SetTextureScaleMode(texture.Handle, _defaultScaleMode);
+
+        _loadedTextures.Add(fileName, texture);
         return texture;
+    }
+
+    public static void AddTextureRegion(string name, TextureRegion textureRegion)
+    {
+        _loadedTextures.TryGetValue(textureRegion.BaseTextureName, out Texture2D? baseTexture);
+        if (baseTexture == null) throw new Exception($"""Texture with name "{name}" cannot be found""");
+
+        _loadedTextures.Add(name, new Texture2D(baseTexture.Handle, name, new Rectangle(textureRegion.X, textureRegion.Y, textureRegion.Width, textureRegion.Height)));
     }
 
     public static void DestroyAllTextures()
     {
-        foreach (Texture2D texture in LoadedTextures.Values)
+        foreach (Texture2D texture in _loadedTextures.Values)
         {
             SDL.DestroyTexture(texture.Handle);
         }

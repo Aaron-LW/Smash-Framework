@@ -62,7 +62,7 @@ public class Renderer
     /// <param name="scale">The scale which the textures bounds should be multiplied with</param>
     public void RenderTexture(Texture2D texture, Vector2 position, Color color, float scale = 1)
     {
-        SDL.FRect rect = new SDL.FRect
+        SDL.FRect dstRect = new SDL.FRect
         {
             X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
             Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
@@ -70,10 +70,23 @@ public class Renderer
             H = texture.Height * scale
         };
 
+        SDL.FRect srcRect = new SDL.FRect
+        {
+            X = 0,
+            Y = 0,
+            W = texture.Width,
+            H = texture.Height
+        };
+
+        if (texture._sourceRectangle != null)
+        {
+            srcRect = texture._sourceRectangle.ToSDLFRect();
+        }
+
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.SetTextureAlphaMod(texture.Handle, color.A);
 
-        SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
+        SDL.RenderTexture(Handle, texture.Handle, srcRect, dstRect);
 
         DrawnTexturesAmount++;
     }
@@ -88,10 +101,23 @@ public class Renderer
             H = texture.Height * scale
         };
 
+        SDL.FRect srcRect = new SDL.FRect
+        {
+            X = 0,
+            Y = 0,
+            W = texture.Width,
+            H = texture.Height
+        };
+
+        if (texture._sourceRectangle != null)
+        {
+            srcRect = texture._sourceRectangle.ToSDLFRect();
+        }
+
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.SetTextureAlphaMod(texture.Handle, color.A);
 
-        SDL.RenderTextureRotated(Handle, texture.Handle, IntPtr.Zero, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
+        SDL.RenderTextureRotated(Handle, texture.Handle, srcRect, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
 
         DrawnTexturesAmount++;
     }

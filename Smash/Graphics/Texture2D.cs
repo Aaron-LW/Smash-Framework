@@ -17,12 +17,14 @@ public class Texture2D
     /// <summary>
     /// The handle of this Texture2D instance
     /// </summary>
-    public nint Handle;
+    public readonly nint Handle;
 
     /// <summary>
     /// The name of the texture gotten from the actual filename without the extension
     /// </summary>
-    public string TextureName;
+    public readonly string TextureName;
+
+    internal readonly Rectangle? _sourceRectangle;
 
     public Texture2D(nint textureHandle, string textureName)
     {
@@ -31,6 +33,15 @@ public class Texture2D
         Width = width;
         Height = height;
         TextureName = textureName;
+    }
+
+    internal Texture2D(nint textureHandle, string textureName, Rectangle sourceRectangle)
+    {
+        Handle = textureHandle;
+        Width = sourceRectangle.Width;
+        Height = sourceRectangle.Height;
+        TextureName = textureName;
+        _sourceRectangle = sourceRectangle;
     }
 
     public Vector2 GetCenter(TransformComponent transformComponent)
