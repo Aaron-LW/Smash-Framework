@@ -10,7 +10,7 @@ public class TextureComponent : Component
     public TextureComponent(string textureName)
     {
         TextureName = textureName;
-        Texture = TextureLoader.Get(textureName);
+        Texture = AssetManager.LoadedTextures[textureName];
     }
 
     public TextureComponent(Texture2D texture)

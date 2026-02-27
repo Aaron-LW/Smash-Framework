@@ -3,7 +3,7 @@ using SDL3;
 
 namespace Smash.Input;
 
-public class InputHandler
+public static class InputHandler
 {
     public static float MouseX { get; private set; }
     public static float MouseY { get; private set; }
@@ -22,7 +22,7 @@ public class InputHandler
     private static bool _leftMousePressed;
     private static bool _rightMousePressed;
 
-    public void Event(SDL.Event e)
+    public static void Event(SDL.Event e)
     {
         _previousDownKeys = _downKeys;
         _previousPressedKeys = _pressedKeys;
@@ -78,7 +78,7 @@ public class InputHandler
         }
     }
 
-    public void Update()
+    public static void Update()
     {
         _pressedKeys.Clear();
         _leftMousePressed = false;
