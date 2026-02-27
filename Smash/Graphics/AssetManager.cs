@@ -8,8 +8,8 @@ public static class AssetManager
     private static Dictionary<string, Texture2D> _loadedTextures = new();
 
     private static string _rootDirectoryPath = "";
-    private static SDL.BlendMode _defaultBlendMode = SDL.BlendMode.Blend;
-    private static SDL.ScaleMode _defaultScaleMode = SDL.ScaleMode.Linear;
+    private static BlendMode _defaultBlendMode = BlendMode.Blend;
+    private static ScaleMode _defaultScaleMode = ScaleMode.Linear;
 
     public static Texture2D? TryGet(string textureName)
     {
@@ -34,7 +34,7 @@ public static class AssetManager
     /// <summary>
     /// Sets the default blend mode that should be applied to every loaded Texture2D after this function has been called
     /// </summary>
-    public static void SetDefaultBlendMode(SDL.BlendMode blendMode)
+    public static void SetDefaultBlendMode(BlendMode blendMode)
     {
         _defaultBlendMode = blendMode;
     }
@@ -42,7 +42,7 @@ public static class AssetManager
     /// <summary>
     /// Sets the default scale mode that should be applied to every loaded Texture2D after this function has been called
     /// </summary>
-    public static void SetDefaultScaleMode(SDL.ScaleMode scaleMode)
+    public static void SetDefaultScaleMode(ScaleMode scaleMode)
     {
         _defaultScaleMode = scaleMode;
     }
@@ -60,8 +60,8 @@ public static class AssetManager
         nint textureHandle = Image.LoadTexture(renderer.Handle, fullPath);
         Texture2D texture = new Texture2D(textureHandle, fileName);
 
-        SDL.SetTextureBlendMode(texture.Handle, _defaultBlendMode);
-        SDL.SetTextureScaleMode(texture.Handle, _defaultScaleMode);
+        SDL.SetTextureBlendMode(texture.Handle, (SDL.BlendMode)_defaultBlendMode);
+        SDL.SetTextureScaleMode(texture.Handle, (SDL.ScaleMode)_defaultScaleMode);
 
         _loadedTextures.Add(fileName, texture);
         return texture;

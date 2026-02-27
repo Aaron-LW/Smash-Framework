@@ -1,6 +1,5 @@
 using System.Drawing;
 using System.Numerics;
-using System.Security.Cryptography;
 using SDL3;
 using Smash.EntityComponentSystem;
 
