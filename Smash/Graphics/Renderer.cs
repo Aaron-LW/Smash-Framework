@@ -23,11 +23,6 @@ public class Renderer
     /// </summary>
     public Vector2 OffsetVector { get; private set; }
 
-    /// <summary>
-    /// Gets incremented everytime a texture is drawn
-    /// </summary>
-    public int DrawnTexturesAmount;
-
     public Renderer(nint rendererHandle)
     {
         Handle = rendererHandle;
@@ -87,8 +82,6 @@ public class Renderer
         SDL.SetTextureAlphaMod(texture.Handle, color.A);
 
         SDL.RenderTexture(Handle, texture.Handle, srcRect, dstRect);
-
-        DrawnTexturesAmount++;
     }
 
     public void RenderTextureRotated(Texture2D texture, Vector2 position, Color color, double angle, float scale = 1)
@@ -118,8 +111,6 @@ public class Renderer
         SDL.SetTextureAlphaMod(texture.Handle, color.A);
 
         SDL.RenderTextureRotated(Handle, texture.Handle, srcRect, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
-
-        DrawnTexturesAmount++;
     }
 
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
@@ -145,8 +136,6 @@ public class Renderer
 
         SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
         SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
-
-        DrawnTexturesAmount++;
     }
 
     /// <summary>
@@ -229,8 +218,6 @@ public class Renderer
         SDL.SetTextureColorMod(textTextureHandle, color.R, color.G, color.B);
         SDL.SetTextureAlphaMod(textTextureHandle, color.A);
         SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
-
-        DrawnTexturesAmount++;
     }
 
     public void SetRenderBlendMode(SDL.BlendMode blendMode)
