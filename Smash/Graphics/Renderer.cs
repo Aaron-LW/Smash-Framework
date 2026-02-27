@@ -213,6 +213,15 @@ public class Renderer
     }
 
     /// <summary>
+    /// Enables or disables vsync for this renderer
+    /// </summary>
+    /// <param name="enabled">If vsync should be enabled or not</param>
+    public void SetVSyncEnabled(bool enabled)
+    {
+        SDL.SetRenderVSync(Handle, enabled ? 1 : 0);
+    }
+
+    /// <summary>
     /// Renders everything to the screen
     /// </summary>
     public void RenderPresent()
