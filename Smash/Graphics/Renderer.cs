@@ -8,19 +8,9 @@ namespace Smash.Graphics;
 public class Renderer
 {
     /// <summary>
-    /// A boolean representing if the offset vector should be used when rendering
-    /// </summary>
-    public bool OffsetVectorEnabled = true;
-
-    /// <summary>
     /// The handle of this instance of the Renderer class
     /// </summary>
     public nint Handle;
-
-    /// <summary>
-    /// The offset of the camera from the coordinates 0, 0
-    /// </summary>
-    public Vector2 OffsetVector { get; private set; }
 
     public Renderer(nint rendererHandle)
     {
@@ -58,8 +48,8 @@ public class Renderer
     {
         SDL.FRect dstRect = new SDL.FRect
         {
-            X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
-            Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
+            X = position.X,
+            Y = position.Y,
             W = texture.Width * scale,
             H = texture.Height * scale
         };
@@ -87,8 +77,8 @@ public class Renderer
     {
         SDL.FRect rect = new SDL.FRect
         {
-            X = position.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
-            Y = position.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
+            X = position.X,
+            Y = position.Y,
             W = texture.Width * scale,
             H = texture.Height * scale
         };
@@ -127,8 +117,8 @@ public class Renderer
 
         SDL.FRect rect = new SDL.FRect
         {
-            X = transform.X - (OffsetVectorEnabled ? OffsetVector.X : 0),
-            Y = transform.Y - (OffsetVectorEnabled ? OffsetVector.Y : 0),
+            X = transform.X,
+            Y = transform.Y,
             W = texture.Width * transform.Scale,
             H = texture.Height * transform.Scale
         };
@@ -143,20 +133,12 @@ public class Renderer
     /// <param name="color">The color of the line</param>
     public void RenderLine(float x1, float y1, float x2, float y2, Color color)
     {
-        x1 -= OffsetVectorEnabled ? OffsetVector.X : 0;
-        x2 -= OffsetVectorEnabled ? OffsetVector.X : 0;
-        y1 -= OffsetVectorEnabled ? OffsetVector.Y : 0;
-        y2 -= OffsetVectorEnabled ? OffsetVector.Y : 0;
-
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, x1, y1, x2, y2);
     }
 
     public void RenderLine(Vector2 startPosition, Vector2 endPosition, Color color)
     {
-        startPosition -= OffsetVectorEnabled ? OffsetVector : Vector2.Zero;
-        endPosition -= OffsetVectorEnabled ? OffsetVector : Vector2.Zero;
-
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, startPosition.X, startPosition.Y, endPosition.X, endPosition.Y);
     }
@@ -171,9 +153,6 @@ public class Renderer
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.FRect rect = rectangle.ToSDLFRect();
 
-        rect.X -= OffsetVectorEnabled ? OffsetVector.X : 0;
-        rect.Y -= OffsetVectorEnabled ? OffsetVector.Y : 0;
-
         SDL.RenderRect(Handle, rect);
     }
 
@@ -187,9 +166,6 @@ public class Renderer
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
 
         SDL.FRect rect = rectangle.ToSDLFRect();
-
-        rect.X -= OffsetVectorEnabled ? OffsetVector.X : 0;
-        rect.Y -= OffsetVectorEnabled ? OffsetVector.Y : 0;
 
         SDL.RenderFillRect(Handle, rect);
     }
@@ -239,10 +215,5 @@ public class Renderer
     public void RenderPresent()
     {
         SDL.RenderPresent(Handle);
-    }
-
-    public void SetOffsetVector(Vector2 offsetVector)
-    {
-        OffsetVector = offsetVector;
     }
 }
