@@ -54,23 +54,44 @@ public class Renderer
             H = texture.Height * scale
         };
 
-        SDL.FRect srcRect = new SDL.FRect
+        if (texture._modulatedColor != color)
         {
-            X = 0,
-            Y = 0,
-            W = texture.Width,
-            H = texture.Height
-        };
-
-        if (texture._sourceRectangle != null)
-        {
-            srcRect = texture._sourceRectangle.ToSDLFRect();
+            SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+            SDL.SetTextureAlphaMod(texture.Handle, color.A);
+            texture._modulatedColor = color;
         }
 
-        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
-        SDL.SetTextureAlphaMod(texture.Handle, color.A);
+        SDL.RenderTexture(Handle, texture.Handle, texture._sourceRectangle, dstRect);
+    }
 
-        SDL.RenderTexture(Handle, texture.Handle, srcRect, dstRect);
+    /// <summary>
+    ///Renders a Texture to the screen
+    /// </summary>
+    /// <param name="texture">The Texture2D to be drawn to the screen</param>
+    /// <param name="x">The x position where the texture should be drawn at</param>
+    /// <param name="y">The y position where the texture should be drawn at </param>
+    /// <param name="color">The color which the texture should have</param>
+    /// <param name="width">The width the texture will be scaled to</param>
+    /// <param name="height">The height the texture will be scaled to</param>
+    /// <param name="scale">The scale which the textures bounds should be multiplied with</param>
+    public void RenderTexture(Texture2D texture, float x, float y, Color color, float scale = 1)
+    {
+        SDL.FRect dstRect = new SDL.FRect
+        {
+            X = x,
+            Y = y,
+            W = texture.Width * scale,
+            H = texture.Height * scale
+        };
+
+        if (texture._modulatedColor != color)
+        {
+            SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+            SDL.SetTextureAlphaMod(texture.Handle, color.A);
+            texture._modulatedColor = color;
+        }
+
+        SDL.RenderTexture(Handle, texture.Handle, texture._sourceRectangle, dstRect);
     }
 
     public void RenderTextureRotated(Texture2D texture, Vector2 position, Color color, double angle, float scale = 1)
@@ -83,23 +104,14 @@ public class Renderer
             H = texture.Height * scale
         };
 
-        SDL.FRect srcRect = new SDL.FRect
+        if (texture._modulatedColor != color)
         {
-            X = 0,
-            Y = 0,
-            W = texture.Width,
-            H = texture.Height
-        };
-
-        if (texture._sourceRectangle != null)
-        {
-            srcRect = texture._sourceRectangle.ToSDLFRect();
+            SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
+            SDL.SetTextureAlphaMod(texture.Handle, color.A);
+            texture._modulatedColor = color;
         }
 
-        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
-        SDL.SetTextureAlphaMod(texture.Handle, color.A);
-
-        SDL.RenderTextureRotated(Handle, texture.Handle, srcRect, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
+        SDL.RenderTextureRotated(Handle, texture.Handle, texture._sourceRectangle, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
     }
 
     /// Renders an entity to the screen if it has a Transform- and TextureComponent
@@ -195,9 +207,9 @@ public class Renderer
         SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
     }
 
-    public void SetRenderBlendMode(SDL.BlendMode blendMode)
+    public void SetRenderBlendMode(BlendMode blendMode)
     {
-        SDL.SetRenderDrawBlendMode(Handle, blendMode);
+        SDL.SetRenderDrawBlendMode(Handle, (SDL.BlendMode)blendMode);
     }
 
     /// <summary>

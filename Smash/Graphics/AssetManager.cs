@@ -67,12 +67,31 @@ public static class AssetManager
         return texture;
     }
 
-    public static void AddTextureRegion(string name, TextureRegion textureRegion)
+    public static Texture2D AddTextureRegion(string name, TextureRegion textureRegion)
     {
         _loadedTextures.TryGetValue(textureRegion.BaseTextureName, out Texture2D? baseTexture);
         if (baseTexture == null) throw new Exception($"""Texture with name "{name}" cannot be found""");
 
-        _loadedTextures.Add(name, new Texture2D(baseTexture.Handle, name, new Rectangle(textureRegion.X, textureRegion.Y, textureRegion.Width, textureRegion.Height)));
+        Texture2D texture = new Texture2D(baseTexture.Handle, name, new Rectangle(textureRegion.X, textureRegion.Y, textureRegion.Width, textureRegion.Height));
+        _loadedTextures.Add(name, texture);
+
+        return texture;
+    }
+
+    /// <summary>
+    /// Loads a Font from a .ttf file relative to the root directory path
+    /// This font does not get stored internally
+    /// </summary>
+    /// <returns>The loaded Font</returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    public static Font LoadFont(string relativePath, float pointSize)
+    {
+        string fullPath = Path.Combine(_rootDirectoryPath, relativePath);
+
+        if (!File.Exists(fullPath)) throw new FileNotFoundException($"Font at {fullPath} could not be found");
+
+        nint fontHandle = TTF.OpenFont(fullPath, pointSize);
+        return new Font(fontHandle, pointSize);
     }
 
     public static void DestroyAllTextures()

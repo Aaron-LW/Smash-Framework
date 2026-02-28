@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Numerics;
 using SDL3;
 using Smash.EntityComponentSystem;
@@ -24,7 +25,9 @@ public class Texture2D
     /// </summary>
     public readonly string TextureName;
 
-    internal readonly Rectangle? _sourceRectangle;
+    internal readonly SDL.FRect _sourceRectangle;
+
+    internal Color _modulatedColor;
 
     public Texture2D(nint textureHandle, string textureName)
     {
@@ -33,6 +36,7 @@ public class Texture2D
         Width = width;
         Height = height;
         TextureName = textureName;
+        _sourceRectangle = new SDL.FRect { X = 0, Y = 0, W = width, H = height};
     }
 
     internal Texture2D(nint textureHandle, string textureName, Rectangle sourceRectangle)
@@ -41,7 +45,7 @@ public class Texture2D
         Width = sourceRectangle.Width;
         Height = sourceRectangle.Height;
         TextureName = textureName;
-        _sourceRectangle = sourceRectangle;
+        _sourceRectangle = sourceRectangle.ToSDLFRect();
     }
 
     public Vector2 GetCenter(TransformComponent transformComponent)
