@@ -24,10 +24,18 @@ public static class SmashEngine
         }
     }
 
-    public static void Update()
+    public static void Update(bool claimEvents = true)
     {
         _deltaTimeCounter.Update();
         InputHandler.Update();
+
+        if (claimEvents)
+        {
+            while (SDL.PollEvent(out SDL.Event e))
+            {
+                ProcessEvent(e);
+            }
+        }
     }
 
     public static void ProcessEvent(SDL.Event e)
@@ -43,6 +51,11 @@ public static class SmashEngine
                     window.Height = _height;
                 }
             }
+        }
+
+        if (e.Type == (uint)SDL.EventType.Quit)
+        {
+            Application._applicationShouldClose = true;
         }
 
         InputHandler.Event(e);

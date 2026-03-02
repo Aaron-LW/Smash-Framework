@@ -6,6 +6,8 @@ namespace Smash;
 
 public abstract class Application
 {
+    internal static bool _applicationShouldClose = false;
+
     public virtual void Start() {}
     public virtual void Update(double deltaTime) { }
     public virtual void Render() { }
@@ -42,5 +44,10 @@ public abstract class Application
 
         nint fontHandle = TTF.OpenFont(fontPath, pointSize);
         return new Font(fontHandle, pointSize);
+    }
+
+    public bool ApplicationShouldClose()
+    {
+        return _applicationShouldClose;
     }
 }    
