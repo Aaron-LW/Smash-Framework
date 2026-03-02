@@ -221,6 +221,12 @@ public class Renderer
         SDL.SetRenderVSync(Handle, enabled ? 1 : 0);
     }
 
+    public static Renderer CreateRenderer(Window window)
+    {
+        nint rendererHandle = SDL.CreateRenderer(window.Handle, null);
+        return new Renderer(rendererHandle);
+    }
+
     /// <summary>
     /// Renders everything to the screen
     /// </summary>

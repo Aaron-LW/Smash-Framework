@@ -25,6 +25,8 @@ public class Texture2D
     /// </summary>
     public readonly string TextureName;
 
+    public Rectangle SourceRectangle => new Rectangle(_sourceRectangle.X, _sourceRectangle.Y, _sourceRectangle.W, _sourceRectangle.H);
+
     internal readonly SDL.FRect _sourceRectangle;
 
     internal Color _modulatedColor;

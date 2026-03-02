@@ -17,7 +17,7 @@ public sealed class DeltaTimeCounter
     /// </summary>
     public double Milliseconds => Seconds * 1000.0;
 
-    private double _maxDeltaSeconds { get; set; } = 0.05; // 50 ms
+    private double _maxDeltaSeconds { get; set; } = 0.05;
 
     public DeltaTimeCounter()
     {
@@ -29,9 +29,6 @@ public sealed class DeltaTimeCounter
         Seconds = 0.0;
     }
 
-    /// <summary>
-    /// Muss einmal pro Frame aufgerufen werden.
-    /// </summary>
     public void Update()
     {
         ulong current = SDL.GetPerformanceCounter();
@@ -39,7 +36,6 @@ public sealed class DeltaTimeCounter
 
         Seconds = delta / (double)_frequency;
 
-        // Clamp gegen extreme Spikes
         if (Seconds > _maxDeltaSeconds)
             Seconds = _maxDeltaSeconds;
 

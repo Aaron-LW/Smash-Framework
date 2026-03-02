@@ -45,4 +45,10 @@ public class Window
             Height = _height;
         }
     }
+
+    public static Window CreateWindow(string title, int width, int height)
+    {
+        nint windowHandle = SDL.CreateWindow(title, width, height, SDL.WindowFlags.Vulkan);
+        return new Window(windowHandle);
+    }
 }
