@@ -1,6 +1,7 @@
 using System.Drawing;
-using SDL3;
 using Smash.Graphics;
+
+namespace CreateWindow;
 
 internal static class Program
 {
@@ -12,9 +13,9 @@ internal static class Program
         bool running = true;
         while (running)
         {
-            while (SDL.PollEvent(out SDL.Event e))
+            while (EventHandler.PollEvent(out Event e))
             {
-                if (e.Type == (uint)SDL.EventType.Quit)
+                if (e.EventType == EventType.Quit)
                 {
                     running = false;
                 }
