@@ -1,3 +1,4 @@
+using System.Numerics;
 using SDL3;
 using Smash.Graphics;
 
@@ -6,9 +7,9 @@ namespace Smash;
 public abstract class Application
 {
     public virtual void Start() {}
-    public abstract void Update(double deltaTime);
-    public abstract void Render();
-    public virtual void End() { SDL.Quit(); }
+    public virtual void Update(double deltaTime) { }
+    public virtual void Render() { }
+    public virtual void End() { }
 
     protected void CreateWindowAndRenderer(string title, int width, int height, out Window window, out Renderer renderer)
     {
@@ -20,6 +21,9 @@ public abstract class Application
 
         window = new Window(windowHandle);
         renderer = new Renderer(rendererHandle);
+
+        window.Bounds = new Vector2(width, height);
+        SmashEngine._windows.Add(window);
     }
 
     /// <summary>

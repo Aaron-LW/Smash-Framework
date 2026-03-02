@@ -2,7 +2,7 @@ using SDL3;
 
 namespace Smash;
 
-public sealed class DeltaTimeCounter
+internal sealed class DeltaTimeCounter
 {
     private ulong _lastCounter;
     private readonly ulong _frequency;
@@ -29,19 +29,12 @@ public sealed class DeltaTimeCounter
         Seconds = 0.0;
     }
 
-    /// <summary>
-    /// Muss einmal pro Frame aufgerufen werden.
-    /// </summary>
     public void Update()
     {
         ulong current = SDL.GetPerformanceCounter();
         ulong delta = current - _lastCounter;
 
         Seconds = delta / (double)_frequency;
-
-        // Clamp gegen extreme Spikes
-        if (Seconds > _maxDeltaSeconds)
-            Seconds = _maxDeltaSeconds;
 
         _lastCounter = current;
     }

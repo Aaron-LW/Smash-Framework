@@ -56,6 +56,14 @@ public class Rectangle
         Bounds = bounds;
     }
 
+    public Rectangle(SDL.FRect sdlRect)
+    {
+        X = sdlRect.X;
+        Y = sdlRect.Y;
+        Width = sdlRect.W;
+        Height = sdlRect.H;
+    }
+
     public Rectangle() {}
 
 

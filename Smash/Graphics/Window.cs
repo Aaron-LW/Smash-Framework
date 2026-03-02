@@ -30,19 +30,4 @@ public class Window
     {
         SDL.DestroyWindow(Handle);
     }
-
-    /// <summary>
-    /// Event that should be called when the window resizes
-    /// </summary>
-    /// <param name="e">The object</param>
-    /// <param name="eventArgs">The WindowResizeEventArgs containing the new width and height</param>
-    public void OnWindowResized(object? e, WindowResizeEventArgs eventArgs)
-    {
-        if (eventArgs.WindowId == SDL.GetWindowID(Handle))
-        {
-            SDL.GetWindowSize(Handle, out int _width, out int _height);
-            Width = _width;
-            Height = _height;
-        }
-    }
 }
