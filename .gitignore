@@ -19,9 +19,9 @@
 x64/
 x86/
 bld/
-Smash/[Bb]in/
-Smash/[Oo]bj/
-Smash/[Ll]og/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
 
 build.sh
 
@@ -289,3 +289,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/Smash/bin
+/Smash/obj
