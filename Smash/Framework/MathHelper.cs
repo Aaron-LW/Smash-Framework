@@ -1,5 +1,7 @@
 using System.Numerics;
 
+namespace Smash;
+
 public static class MathHelper
 {
     public static float Lerp(float startValue, float endValue, float time)

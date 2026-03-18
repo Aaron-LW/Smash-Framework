@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Version>1.1.17</Version>
+    <Version>1.1.21</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Authors>AaronoLW</Authors>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-   <None Include="README.md" Pack="true" PackagePath="\" />
-   <None Include="LICENSE" Pack="true" PackagePath="\" />
+   <None Include="..\README.md" Pack="true" PackagePath="\" />
+   <None Include="..\LICENSE" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

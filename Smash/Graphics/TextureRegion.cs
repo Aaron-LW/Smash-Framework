@@ -1,5 +1,7 @@
 using System.Numerics;
 
+namespace Smash.Graphics;
+
 public class TextureRegion
 {
     public readonly string BaseTextureName;

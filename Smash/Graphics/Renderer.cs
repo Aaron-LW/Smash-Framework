@@ -54,7 +54,10 @@ public class Renderer
             H = texture.Height * scale
         };
 
-        if (texture._modulatedColor != color)
+        if (texture._modulatedColor.R != color.R ||
+            texture._modulatedColor.G != color.G ||
+            texture._modulatedColor.B != color.B ||
+            texture._modulatedColor.A != color.A)
         {
             SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
             SDL.SetTextureAlphaMod(texture.Handle, color.A);
@@ -84,7 +87,10 @@ public class Renderer
             H = texture.Height * scale
         };
 
-        if (texture._modulatedColor != color)
+        if (texture._modulatedColor.R != color.R ||
+            texture._modulatedColor.G != color.G ||
+            texture._modulatedColor.B != color.B ||
+            texture._modulatedColor.A != color.A)
         {
             SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
             SDL.SetTextureAlphaMod(texture.Handle, color.A);
@@ -104,7 +110,10 @@ public class Renderer
             H = texture.Height * scale
         };
 
-        if (texture._modulatedColor != color)
+        if (texture._modulatedColor.R != color.R ||
+            texture._modulatedColor.G != color.G ||
+            texture._modulatedColor.B != color.B ||
+            texture._modulatedColor.A != color.A)
         {
             SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
             SDL.SetTextureAlphaMod(texture.Handle, color.A);

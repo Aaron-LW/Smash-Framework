@@ -1,3 +1,5 @@
+namespace Smash.Graphics;
+
 public enum ScaleMode
 {
     Invalid = -1,
