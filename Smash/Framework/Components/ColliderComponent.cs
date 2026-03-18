@@ -7,10 +7,6 @@ public class ColliderComponent : Component
     public Rectangle Rectangle { get; private set; }
     public bool StaticCollider = false;
 
-    public float XOffset { get => Rectangle.XOffset; set { Rectangle.XOffset = value; }}
-    public float YOffset { get => Rectangle.YOffset; set { Rectangle.YOffset = value; }}
-    public Vector2 Offset { get => Rectangle.Offset; set { Rectangle.Offset = value; }}
-
     public float X { get => Rectangle.X; set { Rectangle.X = value; }}
     public float Y { get => Rectangle.Y; set { Rectangle.Y = value; }}
     public Vector2 Position { get => Rectangle.Position; set { Rectangle.Position = value; }}
