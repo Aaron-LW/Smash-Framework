@@ -19,8 +19,8 @@
 x64/
 x86/
 bld/
-[Bb]in/
-[Oo]bj/
+/Smash/[Bb]in/
+/Smash/[Oo]bj/
 [Ll]og/
 
 build.sh
