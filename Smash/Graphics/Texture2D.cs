@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Numerics;
 using SDL3;
-using Smash.EntityComponentSystem;
 
 namespace Smash.Graphics;
 
@@ -47,10 +46,5 @@ public class Texture2D
         Height = sourceRectangle.Height;
         TextureName = textureName;
         _sourceRectangle = sourceRectangle.ToSDLFRect();
-    }
-
-    public Vector2 GetCenter(TransformComponent transformComponent)
-    {
-        return transformComponent.Position + (Bounds * transformComponent.Scale / 2);
     }
 }

@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Numerics;
 using SDL3;
-using Smash.EntityComponentSystem;
 
 namespace Smash.Graphics;
 
@@ -123,31 +122,6 @@ public class Renderer
         SDL.RenderTextureRotated(Handle, texture.Handle, texture._sourceRectangle, rect, angle, IntPtr.Zero, SDL.FlipMode.None);
     }
 
-    /// Renders an entity to the screen if it has a Transform- and TextureComponent
-    /// </summary>
-    /// <param name="entity">The entity to be drawn</param>
-    /// <param name="color">The color of the entities texture</param>
-    /// <exception cref="InvalidOperationException"></exception>
-    public void RenderEntity(Entity entity, Color color)
-    {
-        TransformComponent? transform = entity.GetComponent<TransformComponent>();
-        Texture2D? texture = entity.GetComponent<TextureComponent>()?.Texture;
-
-        if (transform == null) throw new InvalidOperationException("Entity of type " + entity.GetType() + " has no transform and thus cant be drawn");
-        if (texture == null) throw new InvalidOperationException("Entity of type " + entity.GetType() + " has no Texture and thus cant be drawn");
-
-        SDL.FRect rect = new SDL.FRect
-        {
-            X = transform.X,
-            Y = transform.Y,
-            W = texture.Width * transform.Scale,
-            H = texture.Height * transform.Scale
-        };
-
-        SDL.SetTextureColorMod(texture.Handle, color.R, color.G, color.B);
-        SDL.RenderTexture(Handle, texture.Handle, IntPtr.Zero, rect);
-    }
-
     /// <summary>
     /// Renders a line between two points
     /// </summary>
@@ -200,20 +174,10 @@ public class Renderer
     /// <param name="color">The color which the text should be</param>
     public void RenderText(Font font, string text, Vector2 position, Color color)
     {
-        nint textTextureHandle = font.GetOrRenderText(text, Handle);
-        
-        SDL.GetTextureSize(textTextureHandle, out float width, out float height);
-        SDL.FRect rect = new SDL.FRect
-        {
-            X = position.X,
-            Y = position.Y,
-            W = width,
-            H = height
-        };
+        nint textObject = font.GetOrCreateText(text);
 
-        SDL.SetTextureColorMod(textTextureHandle, color.R, color.G, color.B);
-        SDL.SetTextureAlphaMod(textTextureHandle, color.A);
-        SDL.RenderTexture(Handle, textTextureHandle, IntPtr.Zero, rect);
+        TTF.SetTextColor(textObject, color.R, color.G, color.B, color.A);
+        TTF.DrawRendererText(textObject, position.X, position.Y);
     }
 
     public void SetRenderBlendMode(BlendMode blendMode)
