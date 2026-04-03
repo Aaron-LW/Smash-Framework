@@ -1,10 +1,10 @@
 using SDL3;
 using Smash;
 
-public class Font
+public class Font : IDisposable
 {
     public nint Handle { get; }
-    
+
     public float PointSize { get; }
 
     internal Dictionary<string, nint> _alreadyCreatedTexts = new();
@@ -25,5 +25,16 @@ public class Font
         _alreadyCreatedTexts[text] = textObjectHandle;
 
         return textObjectHandle;
+    }
+
+    public void Dispose()
+    {
+        foreach (nint alreadyCreatedText in _alreadyCreatedTexts.Values)
+        {
+            TTF.DestroyText(alreadyCreatedText);
+        }
+
+        TTF.CloseFont(Handle);
+        _alreadyCreatedTexts.Clear();
     }
 }

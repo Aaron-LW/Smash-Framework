@@ -130,11 +130,19 @@ public static class AssetManager
         _loadedFontSystems.Add(fontName, fontSystem);
     }
 
-    public static void DestroyAllTextures()
+    public static void Dispose()
     {
+        foreach (FontSystem fontSystem in _loadedFontSystems.Values)
+        {
+            fontSystem.Dispose();
+        }
+
         foreach (Texture2D texture in _loadedTextures.Values)
         {
-            SDL.DestroyTexture(texture.Handle);
+            texture.Dispose();
         }
+
+        _loadedFontSystems.Clear();
+        _loadedTextures.Clear();
     }
 }

@@ -4,7 +4,7 @@ using SDL3;
 
 namespace Smash.Graphics;
 
-public class Renderer
+public class Renderer : IDisposable
 {
     /// <summary>
     /// The handle of this instance of the Renderer class
@@ -14,14 +14,6 @@ public class Renderer
     public Renderer(nint rendererHandle)
     {
         Handle = rendererHandle;
-    }
-
-    /// <summary>
-    /// Destroys this renderer
-    /// </summary>
-    public void Destroy()
-    {
-        SDL.DestroyRenderer(Handle);
     }
 
     /// <summary>
@@ -200,5 +192,10 @@ public class Renderer
     public void RenderPresent()
     {
         SDL.RenderPresent(Handle);
+    }
+
+    public void Dispose()
+    {
+        SDL.DestroyRenderer(Handle);
     }
 }

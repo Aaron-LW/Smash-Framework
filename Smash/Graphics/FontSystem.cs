@@ -1,6 +1,6 @@
 using SDL3;
 
-internal class FontSystem
+internal class FontSystem : IDisposable
 {
     public readonly string BaseFontPath;
     private Dictionary<float, Font> _fonts = new();
@@ -21,5 +21,15 @@ internal class FontSystem
         Font font = new Font(fontHandle, pointSize);
         _fonts.Add(pointSize, font);
         return font;
+    }
+
+    public void Dispose()
+    {
+        foreach (Font font in _fonts.Values)
+        {
+            font.Dispose();
+        }
+
+        _fonts.Clear();
     }
 }

@@ -4,7 +4,7 @@ using SDL3;
 
 namespace Smash.Graphics;
 
-public class Texture2D
+public class Texture2D : IDisposable
 {
     public float Width { get; private set; }
     public float Height { get; private set; }
@@ -46,5 +46,10 @@ public class Texture2D
         Height = sourceRectangle.Height;
         TextureName = textureName;
         _sourceRectangle = sourceRectangle.ToSDLFRect();
+    }
+
+    public void Dispose()
+    {
+        SDL.DestroyTexture(Handle);
     }
 }
