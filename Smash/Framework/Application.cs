@@ -26,24 +26,7 @@ public abstract class Application
 
         window.Bounds = new Vector2(width, height);
         SmashEngine._windows.Add(window);
-    }
-
-    /// <summary>
-    /// Loads a Font relative to the root directory of the project
-    /// </summary>
-    /// <param name="relativePath">The relative path from the root of the project</param>
-    /// <returns></returns>
-    protected Font LoadFont(string relativePath, float pointSize)
-    {
-        string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
-
-        if (!File.Exists(fontPath))
-        {
-            throw new FileNotFoundException("Couldn't find Font at " + fontPath);
-        }
-
-        nint fontHandle = TTF.OpenFont(fontPath, pointSize);
-        return new Font(fontHandle, pointSize);
+        SmashEngine._fontEngine = TTF.CreateRendererTextEngine(rendererHandle);
     }
 
     public bool ApplicationShouldClose()

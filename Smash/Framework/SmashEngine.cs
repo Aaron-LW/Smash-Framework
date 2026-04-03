@@ -10,6 +10,7 @@ public static class SmashEngine
 
     internal static DeltaTimeCounter _deltaTimeCounter = new();
     internal static List<Window> _windows = new();
+    internal static nint _fontEngine;
 
     public static void Init()
     {

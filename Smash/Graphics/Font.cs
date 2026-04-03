@@ -1,56 +1,29 @@
-using System.Numerics;
 using SDL3;
-
-namespace Smash.Graphics;
+using Smash;
 
 public class Font
 {
-    private Dictionary<string, nint> _textToTexture = new Dictionary<string, nint>();
+    public nint Handle { get; }
     
-    public readonly float PointSize;
-    public nint Handle;
-    
-    internal Font(nint handle, float pointSize)
+    public float PointSize { get; }
+
+    internal Dictionary<string, nint> _alreadyCreatedTexts = new();
+
+    public Font(nint fontHandle, float pointSize)
     {
-        Handle = handle;
-        PointSize = pointSize;
+        Handle = fontHandle;
     }
 
-    public void Free()
+    internal nint GetOrCreateText(string text)
     {
-        foreach (nint textureHandle in _textToTexture.Values)
+        if (_alreadyCreatedTexts.TryGetValue(text, out nint textObject))
         {
-            SDL.DestroyTexture(textureHandle);
-        } 
-
-        TTF.CloseFont(Handle);
-    }
-
-    public Vector2 MeasureString(string text)
-    {
-        TTF.GetStringSize(Handle, text, (nuint)text.Length, out int width, out int height);
-        return new Vector2(width, height);
-    }
-    
-    internal nint GetOrRenderText(string text, nint renderer)
-    {
-        if (_textToTexture.TryGetValue(text, out nint cachedTextureHandle))
-        {
-            return cachedTextureHandle; 
+            return textObject;
         }
 
-        SDL.Color color = new SDL.Color
-        {
-            R = 255,
-            G = 255,
-            B = 255,
-            A = 255
-        };
+        nint textObjectHandle = TTF.CreateText(SmashEngine._fontEngine, Handle, text, (nuint)text.Length);
+        _alreadyCreatedTexts[text] = textObjectHandle;
 
-        nint surfaceHandle = TTF.RenderTextBlended(Handle, text, (nuint)text.Length, color);
-        nint textureHandle = SDL.CreateTextureFromSurface(renderer, surfaceHandle);
-        
-        _textToTexture[text] = textureHandle;
-        return textureHandle;
+        return textObjectHandle;
     }
 }

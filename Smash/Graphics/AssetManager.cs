@@ -6,20 +6,53 @@ namespace Smash.Graphics;
 public static class AssetManager
 {
     private static Dictionary<string, Texture2D> _loadedTextures = new();
+    private static Dictionary<string, FontSystem> _loadedFontSystems = new();
 
     private static string _rootDirectoryPath = "";
     private static BlendMode _defaultBlendMode = BlendMode.Blend;
     private static ScaleMode _defaultScaleMode = ScaleMode.Linear;
 
-    public static Texture2D? TryGet(string textureName)
+    /// <summary>
+    /// Tries to get a texture from the already loaded textures
+    /// </summary>
+    public static Texture2D? TryGetTexture(string textureName)
     {
         _loadedTextures.TryGetValue(textureName, out Texture2D? texture);
         return texture;
     }
 
-    public static Texture2D Get(string textureName)
+    /// <summary>
+    /// Gets a texture from the already loaded textures by direct access.
+    /// Will crash if the texture doesn't exist
+    /// </summary>
+    public static Texture2D GetTexture(string textureName)
     {
         return _loadedTextures[textureName];
+    }
+
+    /// <summary>
+    /// Tries to get a font from the already loaded fonts
+    /// </summary>
+    public static Font? TryGetFont(string fontName, float pointSize)
+    {
+        if (_loadedFontSystems.TryGetValue(fontName, out FontSystem? fontSystem))
+        {
+            Font font = fontSystem.GetOrCreateFont(pointSize);
+            return font;
+        }
+        
+        return null;
+    }
+
+    /// <summary>
+    /// Gets a font from the already loaded fonts by direct access.
+    /// Will crash if the font doesn't exist
+    /// </summary>
+    public static Font GetFont(string fontName, float pointSize)
+    {
+        FontSystem fontSystem = _loadedFontSystems[fontName];
+        Font font = fontSystem.GetOrCreateFont(pointSize);
+        return font;
     }
 
     /// <summary>
@@ -57,6 +90,8 @@ public static class AssetManager
         string fullPath = Path.Combine(_rootDirectoryPath, relativePath);
         string fileName = Path.GetFileNameWithoutExtension(fullPath);
 
+        if (!File.Exists(fullPath)) throw new FileNotFoundException($"File at {fullPath} could not be found");
+
         nint textureHandle = Image.LoadTexture(renderer.Handle, fullPath);
         Texture2D texture = new Texture2D(textureHandle, fileName);
 
@@ -82,16 +117,17 @@ public static class AssetManager
     /// Loads a Font from a .ttf file relative to the root directory path
     /// This font does not get stored internally
     /// </summary>
-    /// <returns>The loaded Font</returns>
     /// <exception cref="FileNotFoundException"></exception>
-    public static Font LoadFont(string relativePath, float pointSize)
+    public static void LoadFont(string relativePath)
     {
         string fullPath = Path.Combine(_rootDirectoryPath, relativePath);
+        string fontName = Path.GetFileNameWithoutExtension(fullPath);
 
         if (!File.Exists(fullPath)) throw new FileNotFoundException($"Font at {fullPath} could not be found");
 
-        nint fontHandle = TTF.OpenFont(fullPath, pointSize);
-        return new Font(fontHandle, pointSize);
+        FontSystem fontSystem = new FontSystem(fullPath);
+
+        _loadedFontSystems.Add(fontName, fontSystem);
     }
 
     public static void DestroyAllTextures()
