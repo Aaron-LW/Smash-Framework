@@ -1,3 +1,4 @@
+using System.Numerics;
 using SDL3;
 using Smash;
 
@@ -12,6 +13,12 @@ public class Font : IDisposable
     public Font(nint fontHandle, float pointSize)
     {
         Handle = fontHandle;
+    }
+
+    public Vector2 MeasureString(string text)
+    {
+        TTF.GetTextSize(GetOrCreateText(text), out int widht, out int height);
+        return new Vector2(widht, height);
     }
 
     internal nint GetOrCreateText(string text)
