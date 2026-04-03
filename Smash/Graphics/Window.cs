@@ -3,7 +3,7 @@ using SDL3;
 
 namespace Smash.Graphics;
 
-public class Window
+public class Window : IDisposable
 {
     /// <summary>
     /// The handle of this instance of the Window class
@@ -23,10 +23,37 @@ public class Window
         Handle = windowHandle;
     }
 
-    /// <summary>
-    /// Destroys this window
-    /// </summary>
-    public void Destroy()
+    public void SetFullscreen(bool fullscreen)
+    {
+        SDL.SetWindowFullscreen(Handle, fullscreen);
+    }
+
+    public void SetWindowAlwaysOnTop(bool alwaysOnTop)
+    {
+        SDL.SetWindowAlwaysOnTop(Handle, alwaysOnTop);
+    }
+
+    public void SetWindowTitle(string title)
+    {
+        SDL.SetWindowTitle(Handle, title);
+    }
+
+    public void SetWindowMinimumSize(int minimumWidht, int minimumHeight)
+    {
+        SDL.SetWindowMinimumSize(Handle, minimumWidht, minimumHeight);
+    }
+
+    public void SetWindowMaximumSize(int maximumWidth, int maximumHeight)
+    {
+        SDL.SetWindowMaximumSize(Handle, maximumWidth, maximumHeight);
+    }
+
+    public void SetWindowResizable(bool resizable)
+    {
+        SDL.SetWindowResizable(Handle, resizable);
+    }
+
+    public void Dispose()
     {
         SDL.DestroyWindow(Handle);
     }
