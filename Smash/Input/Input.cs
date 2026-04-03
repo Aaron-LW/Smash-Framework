@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Runtime.InteropServices;
 using SDL3;
 
 namespace Smash.Input;
@@ -11,6 +12,11 @@ public static class InputHandler
 
     public static float ScrollWheelDelta { get; private set; }
 
+    /// <summary>
+    /// The characters the user has entered this frame. Start polling for text input by calling InputHandler.StartPollingTextInput()
+    /// </summary>
+    public static string? TextInput { get; private set; }
+
     private static HashSet<SDL.Keycode> _previousDownKeys = new();
     private static HashSet<SDL.Keycode> _previousPressedKeys = new();
 
@@ -21,6 +27,8 @@ public static class InputHandler
     private static bool _rightMouseDown;
     private static bool _leftMousePressed;
     private static bool _rightMousePressed;
+
+    private static bool _listenForTextInput = false;
 
     public static void Event(SDL.Event e)
     {
@@ -76,6 +84,14 @@ public static class InputHandler
         {
             ScrollWheelDelta = e.Wheel.Y;
         }
+
+        if (_listenForTextInput)
+        {
+            if (e.Type == (uint)SDL.EventType.TextInput)
+            {
+                TextInput = Marshal.PtrToStringUTF8(e.Text.Text);
+            }
+        }
     }
 
     public static void Update()
@@ -83,7 +99,18 @@ public static class InputHandler
         _pressedKeys.Clear();
         _leftMousePressed = false;
         _rightMousePressed = false;
+        TextInput = null;
         ScrollWheelDelta = 0;
+    }
+
+    public static void StartPollingTextInput()
+    {
+        if (!SmashEngine._pollingTextInput)
+        {
+            SmashEngine.StartPollingTextInput();
+        }
+
+        _listenForTextInput = true;
     }
 
     public static bool IsKeyDown(SDL.Keycode key) => _downKeys.Contains(key);

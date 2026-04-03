@@ -12,6 +12,8 @@ public static class SmashEngine
     internal static List<Window> _windows = new();
     internal static nint _fontEngine;
 
+    internal static bool _pollingTextInput = false;
+
     public static void Init()
     {
         if (!SDL.Init(SDL.InitFlags.Video))
@@ -64,7 +66,22 @@ public static class SmashEngine
 
     public static void Stop()
     {
+        foreach (Window window in _windows)
+        {
+            SDL.StopTextInput(window.Handle);
+        }
+
         SDL.Quit();
         TTF.Quit();
+    }
+
+    internal static void StartPollingTextInput()
+    {
+        foreach (Window window in _windows)
+        {
+            SDL.StartTextInput(window.Handle);
+        }
+
+        _pollingTextInput = true;
     }
 }
