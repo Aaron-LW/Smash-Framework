@@ -25,8 +25,11 @@ public static class InputHandler
 
     private static bool _leftMouseDown;
     private static bool _rightMouseDown;
+    private static bool _middleMouseDown;
+
     private static bool _leftMousePressed;
     private static bool _rightMousePressed;
+    private static bool _middleMousePressed;
 
     private static bool _listenForTextInput = false;
 
@@ -58,6 +61,12 @@ public static class InputHandler
                 _rightMousePressed = !_rightMouseDown;
                 _rightMouseDown = true;
             }
+
+            if (e.Button.Button == SDL.ButtonMiddle)
+            {
+                _middleMousePressed = !_middleMouseDown;
+                _middleMouseDown = true;
+            }
         }
 
         if (e.Type == (uint)SDL.EventType.MouseButtonUp)
@@ -70,6 +79,11 @@ public static class InputHandler
             if (e.Button.Button == SDL.ButtonRight)
             {
                 _rightMouseDown = false;
+            }
+
+            if (e.Button.Button == SDL.ButtonMiddle)
+            {
+                _middleMouseDown = false;
             }
         }
 
@@ -99,6 +113,7 @@ public static class InputHandler
         _pressedKeys.Clear();
         _leftMousePressed = false;
         _rightMousePressed = false;
+        _middleMousePressed = false;
         TextInput = null;
         ScrollWheelDelta = 0;
     }
@@ -121,6 +136,9 @@ public static class InputHandler
 
     public static bool IsLeftMouseDown() => _leftMouseDown;
     public static bool IsRightMouseDown() => _rightMouseDown;
+    public static bool IsMiddleMouseDown() => _middleMouseDown;
+
     public static bool IsLeftMousePressed() => _leftMousePressed;
     public static bool IsRightMousePressed() => _rightMousePressed;
+    public static bool IsMiddleMousePressed() => _middleMousePressed;
 }
