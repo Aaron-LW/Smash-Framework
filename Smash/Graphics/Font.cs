@@ -28,7 +28,7 @@ public class Font : IDisposable
             return textObject;
         }
 
-        nint textObjectHandle = TTF.CreateText(SmashEngine._fontEngine, Handle, text, (nuint)text.Length);
+        nint textObjectHandle = TTF.CreateText(SmashEngine._fontEngine, Handle, text, 0);
         _alreadyCreatedTexts[text] = textObjectHandle;
 
         return textObjectHandle;
