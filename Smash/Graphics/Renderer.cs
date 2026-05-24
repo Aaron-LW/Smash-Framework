@@ -182,18 +182,34 @@ public class Renderer : IDisposable
     }
 
     /// <summary>
-    /// Renders text to the screen at specified position
+    /// Renders text to the screen at the specified position
     /// </summary>
-    /// <param name="font">The Font of the text</param>
-    /// <param name="text">The string representing the text that should be drawn</param>
-    /// <param name="position">The position where the text should be drawn in screen coordinates</param>
-    /// <param name="color">The color which the text should be</param>
     public void RenderText(Font font, string text, Vector2 position, Color color)
     {
         nint textObject = font.GetOrCreateText(text);
 
         TTF.SetTextColor(textObject, color.R, color.G, color.B, color.A);
         TTF.DrawRendererText(textObject, position.X, position.Y);
+    }
+
+    /// <summary>
+    /// Renders text to the screen at the specified position without the need of a font.
+    /// This should mainly be used for debugging purposes
+    /// </summary>
+    public void RenderDebugText(Vector2 position, string text, Color color)
+    {
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderDebugText(Handle, position.X, position.Y, text);
+    }
+
+    /// <summary>
+    /// Renders text to the screen at the specified position without the need of a font.
+    /// This should mainly be used for debugging purposes
+    /// </summary>
+    public void RenderDebugText(float x, float y, string text, Color color)
+    {
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderDebugText(Handle, x, y, text);
     }
 
     public void SetRenderBlendMode(BlendMode blendMode)
