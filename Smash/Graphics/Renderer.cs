@@ -117,17 +117,41 @@ public class Renderer : IDisposable
     /// <summary>
     /// Renders a line between two points
     /// </summary>
-    /// <param name="color">The color of the line</param>
     public void RenderLine(float x1, float y1, float x2, float y2, Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, x1, y1, x2, y2);
     }
 
+    /// <summary>
+    /// Renders a line between two points
+    /// </summary>
     public void RenderLine(Vector2 startPosition, Vector2 endPosition, Color color)
     {
         SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
         SDL.RenderLine(Handle, startPosition.X, startPosition.Y, endPosition.X, endPosition.Y);
+    }
+
+    /// <summary>
+    /// Renders a point at the specified position
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="color"></param>
+    public void RenderPoint(Vector2 position, Color color)
+    {
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderPoint(Handle, position.X, position.Y);
+    }
+
+    /// <summary>
+    /// Renders a point at the specified position
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="color"></param>
+    public void RenderPoint(float x, float y, Color color)
+    {
+        SDL.SetRenderDrawColor(Handle, color.R, color.G, color.B, color.A);
+        SDL.RenderPoint(Handle, x, y);
     }
 
     /// <summary>
